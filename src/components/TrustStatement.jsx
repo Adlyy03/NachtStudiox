@@ -150,8 +150,8 @@ export default function TrustStatement() {
 
         @media (max-width: 860px) {
           .pillars-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
           }
         }
 
@@ -164,10 +164,28 @@ export default function TrustStatement() {
                       background-color var(--duration-fast) var(--ease-out);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 860px) {
           .pillar-item {
-            padding: 1.25rem 1rem;
-            border-radius: var(--radius-sm);
+            padding: 0.875rem 0.625rem;
+            border-radius: var(--radius-xs);
+          }
+          .pillar-icon-box {
+            width: 28px;
+            height: 28px;
+            margin-bottom: 0.625rem;
+          }
+          .pillar-icon-box svg {
+            width: 14px;
+            height: 14px;
+          }
+          .pillar-title {
+            font-size: 0.78125rem;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+          }
+          .pillar-item .body-small {
+            font-size: 0.625rem;
+            line-height: 1.35;
           }
         }
 

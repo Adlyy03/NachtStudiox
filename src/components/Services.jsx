@@ -195,19 +195,19 @@ export default function Services() {
         .services-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1.75rem;
-          margin-bottom: 2.5rem;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
         }
 
-        @media (max-width: 960px) {
+        @media (max-width: 768px) {
           .services-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
           }
         }
 
         .service-card {
-          padding: 2.25rem 2rem;
+          padding: 2rem 1.75rem;
           cursor: pointer;
           display: flex;
           flex-direction: column;
@@ -215,10 +215,10 @@ export default function Services() {
           outline: none;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .service-card {
-            padding: 1.35rem 1.15rem;
-            border-radius: var(--radius-sm);
+            padding: 0.875rem 0.625rem;
+            border-radius: var(--radius-xs);
           }
         }
 
@@ -237,19 +237,19 @@ export default function Services() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .card-top {
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.625rem;
           }
         }
 
         .service-icon-wrap {
-          width: 44px;
-          height: 44px;
-          border-radius: var(--radius-sm);
+          width: 40px;
+          height: 40px;
+          border-radius: var(--radius-xs);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--color-border);
           display: flex;
@@ -258,73 +258,116 @@ export default function Services() {
           color: var(--color-white);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .service-icon-wrap {
-            width: 38px;
-            height: 38px;
+            width: 28px;
+            height: 28px;
+          }
+          .service-icon-wrap svg {
+            width: 14px;
+            height: 14px;
           }
         }
 
         .service-index {
           font-family: var(--font-mono);
-          font-size: 0.875rem;
+          font-size: 0.8125rem;
           color: var(--color-gray-500);
         }
 
+        @media (max-width: 768px) {
+          .service-index {
+            font-size: 0.625rem;
+          }
+        }
+
         .service-name {
-          font-size: 1.625rem;
-          margin-bottom: 0.35rem;
+          font-size: 1.5rem;
+          margin-bottom: 0.25rem;
           color: var(--color-white);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .service-name {
-            font-size: 1.25rem;
+            font-size: 0.78125rem;
+            line-height: 1.2;
+            margin-bottom: 0.2rem;
           }
         }
 
         .service-tagline {
           font-family: var(--font-mono);
-          font-size: 0.75rem;
+          font-size: 0.6875rem;
           color: var(--color-gray-400);
           text-transform: uppercase;
           letter-spacing: 0.06em;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1rem;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .service-tagline {
-            font-size: 0.6875rem;
-            margin-bottom: 0.875rem;
+            font-size: 0.5625rem;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
           }
         }
 
         .service-desc {
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
           flex-grow: 1;
         }
 
+        @media (max-width: 768px) {
+          .service-desc {
+            font-size: 0.625rem;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+
         .service-metrics-badge {
-          padding: 0.5rem 0.75rem;
+          padding: 0.4rem 0.625rem;
           background: rgba(255, 255, 255, 0.03);
           border: 1px solid var(--color-border-subtle);
           border-radius: var(--radius-xs);
           font-family: var(--font-mono);
           font-size: 0.6875rem;
           color: var(--color-gray-300);
-          margin-bottom: 1.75rem;
+          margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+          .service-metrics-badge {
+            display: none;
+          }
         }
 
         .service-footer-cta {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-top: 1rem;
+          padding-top: 0.75rem;
           border-top: 1px solid var(--color-border-subtle);
-          font-size: 0.8125rem;
+          font-size: 0.75rem;
           font-weight: 500;
           color: var(--color-gray-400);
-          transition: color var(--duration-fast) var(--ease-out);
+        }
+
+        @media (max-width: 768px) {
+          .service-footer-cta {
+            font-size: 0.5625rem;
+            padding-top: 0.4rem;
+          }
+          .cta-label {
+            display: none;
+          }
         }
 
         .service-card:hover .service-footer-cta,
@@ -392,8 +435,30 @@ export default function Services() {
 
         @media (max-width: 860px) {
           .inspector-content-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .inspector-content-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+          }
+          .col-label {
+            font-size: 0.625rem;
+            margin-bottom: 0.5rem;
+          }
+          .deliverable-item {
+            font-size: 0.6875rem;
+            line-height: 1.3;
+          }
+          .target-block p {
+            font-size: 0.6875rem;
+          }
+          .tag {
+            font-size: 0.5625rem;
+            padding: 2px 5px;
           }
         }
 

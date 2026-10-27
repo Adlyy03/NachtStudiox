@@ -289,12 +289,13 @@ export default function SelectedWork({ onNavigateToAdmin }) {
         .work-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 2rem;
+          gap: 1.75rem;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 768px) {
           .work-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.625rem;
           }
         }
 
@@ -302,9 +303,9 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           grid-column: span 2;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 768px) {
           .work-card-large {
-            grid-column: span 1;
+            grid-column: span 2;
           }
         }
 
@@ -325,7 +326,7 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           grid-template-columns: 1.15fr 0.85fr;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 768px) {
           .work-card-large {
             display: flex;
             flex-direction: column;
@@ -350,10 +351,17 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           min-height: 340px;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 768px) {
           .work-card-large .work-visual-frame {
             border-right: none;
             border-bottom: 1px solid var(--color-border);
+          }
+          .work-visual-frame {
+            min-height: 120px !important;
+            padding: 0.75rem !important;
+          }
+          .work-card-large .work-visual-frame {
+            min-height: 130px !important;
           }
         }
 
@@ -433,19 +441,33 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           justify-content: space-between;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .work-card-body {
-            padding: 1.35rem 1.15rem;
+            padding: 0.875rem 0.75rem !important;
           }
-          .work-visual-frame {
-            min-height: 160px;
-            padding: 1rem;
-          }
-          .work-card-large .work-visual-frame {
-            min-height: 180px;
+          .work-category {
+            font-size: 0.5625rem !important;
           }
           .work-item-title {
-            font-size: 1.25rem;
+            font-size: 0.875rem !important;
+            margin-bottom: 0.2rem !important;
+          }
+          .work-item-summary {
+            font-size: 0.6875rem !important;
+            line-height: 1.35 !important;
+            margin-bottom: 0.5rem !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          .visual-badge-overlay .tag {
+            font-size: 0.5rem !important;
+            padding: 2px 4px !important;
+          }
+          .work-stack-list .tag {
+            font-size: 0.5625rem !important;
+            padding: 2px 5px !important;
           }
         }
 

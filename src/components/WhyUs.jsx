@@ -170,10 +170,11 @@ export default function WhyUs() {
           margin-bottom: 4.5rem;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 860px) {
           .tenets-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
           }
         }
 
@@ -183,16 +184,23 @@ export default function WhyUs() {
           flex-direction: column;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 860px) {
           .tenet-card {
-            padding: 1.35rem 1.15rem;
-            border-radius: var(--radius-sm);
+            padding: 0.875rem 0.625rem;
+            border-radius: var(--radius-xs);
           }
           .tenet-number {
-            margin-bottom: 0.875rem;
+            font-size: 0.625rem;
+            margin-bottom: 0.4rem;
           }
           .tenet-title {
-            font-size: 1.25rem;
+            font-size: 0.78125rem;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+          }
+          .tenet-text {
+            font-size: 0.625rem;
+            line-height: 1.35;
           }
         }
 

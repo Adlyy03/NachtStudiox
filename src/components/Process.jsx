@@ -148,9 +148,9 @@ export default function Process() {
           padding-left: 2rem;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .process-timeline {
-            padding-left: 1.25rem;
+            padding-left: 0;
           }
         }
 
@@ -170,9 +170,9 @@ export default function Process() {
           transform: translateX(-50%);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .timeline-rail {
-            left: 12px;
+            display: none;
           }
         }
 
@@ -195,9 +195,11 @@ export default function Process() {
           gap: 2.25rem;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .process-list {
-            gap: 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
           }
         }
 
@@ -208,6 +210,14 @@ export default function Process() {
           gap: 1.5rem;
         }
 
+        @media (max-width: 768px) {
+          .process-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+          }
+        }
+
         .step-node-col {
           position: absolute;
           left: -2rem;
@@ -215,10 +225,10 @@ export default function Process() {
           z-index: 2;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .step-node-col {
-            left: -1.25rem;
-            top: 1rem;
+            position: static;
+            margin-bottom: 0.35rem;
           }
         }
 
@@ -246,12 +256,13 @@ export default function Process() {
           margin-left: 19px;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .step-node {
-            width: 26px;
-            height: 26px;
-            margin-left: 12px;
-            font-size: 0.6875rem;
+            width: 22px;
+            height: 22px;
+            margin-left: 0;
+            transform: none;
+            font-size: 0.625rem;
           }
         }
 
@@ -270,11 +281,30 @@ export default function Process() {
           margin-left: 1rem;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .step-card {
-            padding: 1.25rem 1rem;
-            margin-left: 0.25rem;
-            border-radius: var(--radius-sm);
+            padding: 0.75rem 0.625rem !important;
+            margin-left: 0 !important;
+            border-radius: var(--radius-xs);
+          }
+          .step-name {
+            font-size: 0.78125rem !important;
+            margin-bottom: 0.15rem;
+          }
+          .step-tagline {
+            font-size: 0.5625rem !important;
+          }
+          .step-desc {
+            font-size: 0.625rem !important;
+            line-height: 1.35 !important;
+            margin-bottom: 0.35rem !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          .step-outputs {
+            display: none;
           }
         }
 
