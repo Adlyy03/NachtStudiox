@@ -1,0 +1,882 @@
+import { useState, useEffect } from 'react';
+import {
+  getStoredProjects,
+  saveStoredProjects,
+  resetStoredProjects,
+  checkAdminSession,
+  setAdminSession,
+  getStoredTestimonials,
+  deleteStoredTestimonial,
+} from '../data/storage';
+import {
+  Lock,
+  Unlock,
+  Plus,
+  Pencil,
+  Trash2,
+  RotateCcw,
+  ArrowLeft,
+  Check,
+  X,
+  ShieldCheck,
+} from 'lucide-react';
+
+const ADMIN_DEFAULT_PASS = 'lichtcraft2024';
+const DEFAULT_YEAR = new Date().getFullYear().toString();
+
+export default function AdminDashboard({ onBackToHome }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(checkAdminSession());
+  const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState(false);
+
+  // Data state
+  const [projects, setProjects] = useState(getStoredProjects());
+  const [testimonials, setTestimonials] = useState(getStoredTestimonials());
+  const [activeTab, setActiveTab] = useState('projects');
+
+  // Modal / Form state for Add/Edit Project
+  const [editingProject, setEditingProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Form Fields
+  const [formId, setFormId] = useState('');
+  const [formTitle, setFormTitle] = useState('');
+  const [formSubtitle, setFormSubtitle] = useState('');
+  const [formCategory, setFormCategory] = useState('Website Development');
+  const [formCategoryKey, setFormCategoryKey] = useState('website');
+  const [formYear, setFormYear] = useState(DEFAULT_YEAR);
+  const [formBadge, setFormBadge] = useState('Production Release');
+  const [formSummary, setFormSummary] = useState('');
+  const [formChallenge, setFormChallenge] = useState('');
+  const [formSolution, setFormSolution] = useState('');
+  const [formStack, setFormStack] = useState('React, TypeScript, GSAP');
+  const [formDeliverables, setFormDeliverables] = useState('Responsive Layout, Lighthouse 95+, Schema SEO');
+  const [formHighlights, setFormHighlights] = useState('Sub-detik render, Zero layout shift');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const refreshData = () => {
+      setProjects(getStoredProjects());
+      setTestimonials(getStoredTestimonials());
+      setIsAuthenticated(checkAdminSession());
+    };
+    window.addEventListener('lichtcraft_projects_changed', refreshData);
+    window.addEventListener('lichtcraft_testimonials_changed', refreshData);
+    window.addEventListener('lichtcraft_auth_changed', refreshData);
+    return () => {
+      window.removeEventListener('lichtcraft_projects_changed', refreshData);
+      window.removeEventListener('lichtcraft_testimonials_changed', refreshData);
+      window.removeEventListener('lichtcraft_auth_changed', refreshData);
+    };
+  }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_DEFAULT_PASS || passwordInput === 'admin') {
+      setAdminSession(true);
+      setIsAuthenticated(true);
+      setLoginError(false);
+    } else {
+      setLoginError(true);
+    }
+  };
+
+  const handleLogout = () => {
+    setAdminSession(false);
+    setIsAuthenticated(false);
+    setPasswordInput('');
+  };
+
+  const openAddModal = () => {
+    setEditingProject(null);
+    setFormId(`proj-${Date.now()}`);
+    setFormTitle('');
+    setFormSubtitle('');
+    setFormCategory('Website Development');
+    setFormCategoryKey('website');
+    setFormYear(new Date().getFullYear().toString());
+    setFormBadge('Studio Production Project');
+    setFormSummary('');
+    setFormChallenge('');
+    setFormSolution('');
+    setFormStack('React, TypeScript, GSAP');
+    setFormDeliverables('Responsive Layout, Lighthouse 95+, Schema SEO');
+    setFormHighlights('Sub-detik render, Zero layout shift');
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (proj) => {
+    setEditingProject(proj);
+    setFormId(proj.id);
+    setFormTitle(proj.title);
+    setFormSubtitle(proj.subtitle);
+    setFormCategory(proj.category);
+    setFormCategoryKey(proj.categoryKey || 'website');
+    setFormYear(proj.year);
+    setFormBadge(proj.badge);
+    setFormSummary(proj.summary);
+    setFormChallenge(proj.challenge);
+    setFormSolution(proj.solution);
+    setFormStack(Array.isArray(proj.stack) ? proj.stack.join(', ') : proj.stack);
+    setFormDeliverables(
+      Array.isArray(proj.deliverables) ? proj.deliverables.join(', ') : proj.deliverables
+    );
+    setFormHighlights(
+      Array.isArray(proj.highlights) ? proj.highlights.join(', ') : proj.highlights
+    );
+    setIsModalOpen(true);
+  };
+
+  const handleSaveProject = (e) => {
+    e.preventDefault();
+    if (!formTitle.trim()) return;
+
+    const parsedStack = formStack
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const parsedDeliverables = formDeliverables
+      .split(',')
+      .map((d) => d.trim())
+      .filter(Boolean);
+    const parsedHighlights = formHighlights
+      .split(',')
+      .map((h) => h.trim())
+      .filter(Boolean);
+
+    const projectPayload = {
+      id: formId || `proj-${Date.now()}`,
+      title: formTitle.trim(),
+      subtitle: formSubtitle.trim(),
+      category: formCategory,
+      categoryKey: formCategoryKey,
+      year: formYear.trim(),
+      badge: formBadge.trim(),
+      summary: formSummary.trim(),
+      challenge: formChallenge.trim(),
+      solution: formSolution.trim(),
+      stack: parsedStack.length ? parsedStack : ['React', 'TypeScript'],
+      deliverables: parsedDeliverables.length ? parsedDeliverables : ['Arsitektur Kode Bersih'],
+      highlights: parsedHighlights.length ? parsedHighlights : ['Performa Terverifikasi'],
+    };
+
+    let updated;
+    if (editingProject) {
+      updated = projects.map((p) => (p.id === editingProject.id ? projectPayload : p));
+    } else {
+      updated = [projectPayload, ...projects];
+    }
+
+    saveStoredProjects(updated);
+    setProjects(updated);
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteProject = (id) => {
+    if (window.confirm('Yakin ingin menghapus proyek ini secara permanen dari portofolio?')) {
+      const updated = projects.filter((p) => p.id !== id);
+      saveStoredProjects(updated);
+      setProjects(updated);
+    }
+  };
+
+  const handleResetData = () => {
+    if (window.confirm('Reset seluruh data proyek ke data default bawaan studio?')) {
+      resetStoredProjects();
+    }
+  };
+
+  const handleDeleteTestimonial = (id) => {
+    if (window.confirm('Hapus testimoni ini?')) {
+      deleteStoredTestimonial(id);
+    }
+  };
+
+  // If Not Authenticated, show Login Form
+  if (!isAuthenticated) {
+    return (
+      <div className="admin-page-wrapper">
+        <div className="container" style={{ maxWidth: '480px' }}>
+          <div className="admin-login-card surface-raised">
+            <div className="login-top">
+              <div className="login-icon-box">
+                <Lock size={22} className="text-white" />
+              </div>
+              <h1 className="heading-2">Admin Studio LichtCraft</h1>
+              <p className="body-small text-muted">
+                Autentikasi sesi untuk mengelola portofolio proyek dan testimoni klien.
+              </p>
+            </div>
+
+            <form onSubmit={handleLogin} className="login-form">
+              <div className="form-group">
+                <label className="form-label" htmlFor="admin-pass">
+                  Kunci Akses / Password
+                </label>
+                <input
+                  id="admin-pass"
+                  type="password"
+                  className="form-input"
+                  placeholder="Masukkan password admin..."
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  autoFocus
+                  required
+                />
+                <span className="pass-hint">
+                  Default pass: <code>lichtcraft2024</code> atau <code>admin</code>
+                </span>
+              </div>
+
+              {loginError && (
+                <div className="login-error-alert">
+                  Password tidak valid. Silakan coba kembali.
+                </div>
+              )}
+
+              <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+                <span>Buka Panel Manajemen</span>
+                <Unlock size={16} />
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                style={{ marginTop: '0.75rem', width: '100%' }}
+                onClick={onBackToHome}
+              >
+                ← Kembali ke Halaman Utama
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <style>{`
+          .admin-page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+            background-color: var(--color-ink);
+          }
+          .admin-login-card {
+            padding: 2.75rem 2.25rem;
+            background-color: var(--color-charcoal);
+            border: 1px solid var(--color-border-strong);
+            box-shadow: var(--shadow-floating);
+          }
+          .login-top {
+            text-align: center;
+            margin-bottom: 2rem;
+          }
+          .login-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+          }
+          .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+          }
+          .pass-hint {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--color-gray-500);
+            margin-top: 0.35rem;
+            display: block;
+          }
+          .pass-hint code {
+            color: var(--color-white);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 5px;
+            border-radius: 3px;
+          }
+          .login-error-alert {
+            padding: 0.75rem;
+            background: rgba(255, 60, 60, 0.1);
+            border: 1px solid rgba(255, 60, 60, 0.3);
+            border-radius: var(--radius-xs);
+            color: #ff8585;
+            font-size: 0.8125rem;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Authenticated Admin Dashboard
+  return (
+    <div className="admin-dashboard-wrapper">
+      <div className="container">
+        {/* Top Control Bar */}
+        <div className="admin-header-bar">
+          <div className="admin-brand-status">
+            <button type="button" className="btn btn-secondary btn-sm" onClick={onBackToHome}>
+              <ArrowLeft size={14} />
+              <span>Lihat Website</span>
+            </button>
+            <span className="admin-badge">
+              <ShieldCheck size={14} />
+              <span>SESI ADMIN AKTIF</span>
+            </span>
+          </div>
+
+          <div className="admin-header-actions">
+            <button type="button" className="btn btn-ghost btn-sm" onClick={handleLogout}>
+              <span>Kunci Sesi / Keluar</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Admin Title */}
+        <div className="admin-title-row">
+          <div>
+            <h1 className="heading-1">Pusat Kendali Portofolio & Konten</h1>
+            <p className="body-regular text-muted">
+              Kelola entri portofolio yang ditampilkan di halaman depan dan moderasi testimoni partner.
+            </p>
+          </div>
+
+          <div className="title-action-buttons">
+            <button type="button" className="btn btn-secondary btn-sm" onClick={handleResetData}>
+              <RotateCcw size={14} />
+              <span>Reset Data Default</span>
+            </button>
+            <button type="button" className="btn btn-primary" onClick={openAddModal}>
+              <Plus size={16} />
+              <span>Tambah Proyek Baru</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Tab Switcher */}
+        <div className="admin-tab-nav">
+          <button
+            type="button"
+            className={`admin-tab-btn ${activeTab === 'projects' ? 'is-active' : ''}`}
+            onClick={() => setActiveTab('projects')}
+          >
+            <span>Daftar Proyek Portofolio ({projects.length})</span>
+          </button>
+          <button
+            type="button"
+            className={`admin-tab-btn ${activeTab === 'testimonials' ? 'is-active' : ''}`}
+            onClick={() => setActiveTab('testimonials')}
+          >
+            <span>Moderasi Testimoni ({testimonials.length})</span>
+          </button>
+        </div>
+
+        {/* Tab 1: Projects Management */}
+        {activeTab === 'projects' && (
+          <div className="projects-table-card surface-raised">
+            <div className="table-responsive">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Judul Proyek</th>
+                    <th>Kategori</th>
+                    <th>Tahun</th>
+                    <th>Status Badge</th>
+                    <th>Tech Stack</th>
+                    <th style={{ textAlign: 'right' }}>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {projects.map((proj) => (
+                    <tr key={proj.id}>
+                      <td>
+                        <strong className="table-title">{proj.title}</strong>
+                        <span className="table-sub">{proj.subtitle}</span>
+                      </td>
+                      <td>
+                        <span className="tag">{proj.category}</span>
+                      </td>
+                      <td>
+                        <span className="table-mono">{proj.year}</span>
+                      </td>
+                      <td>
+                        <span className="table-badge">{proj.badge}</span>
+                      </td>
+                      <td>
+                        <div className="table-chips">
+                          {Array.isArray(proj.stack) &&
+                            proj.stack.slice(0, 3).map((st) => (
+                              <span key={st} className="tag tag-active">
+                                {st}
+                              </span>
+                            ))}
+                        </div>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <div className="action-buttons-cell">
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => openEditModal(proj)}
+                            title="Edit data proyek"
+                          >
+                            <Pencil size={13} />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-delete-row"
+                            onClick={() => handleDeleteProject(proj.id)}
+                            title="Hapus proyek"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 2: Testimonials Moderation */}
+        {activeTab === 'testimonials' && (
+          <div className="projects-table-card surface-raised">
+            <div className="table-responsive">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Klien / Penulis</th>
+                    <th>Perusahaan</th>
+                    <th>Layanan</th>
+                    <th>Tanggal</th>
+                    <th>Isi Testimoni</th>
+                    <th style={{ textAlign: 'right' }}>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {testimonials.map((testi) => (
+                    <tr key={testi.id}>
+                      <td>
+                        <strong className="table-title">{testi.name}</strong>
+                        <span className="table-sub">{testi.role}</span>
+                      </td>
+                      <td>{testi.company}</td>
+                      <td>
+                        <span className="tag">{testi.projectType}</span>
+                      </td>
+                      <td>
+                        <span className="table-mono">{testi.date || testi.year}</span>
+                      </td>
+                      <td>
+                        <p className="table-quote-preview">"{testi.content}"</p>
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        <button
+                          type="button"
+                          className="btn-delete-row"
+                          onClick={() => handleDeleteTestimonial(testi.id)}
+                          title="Hapus testimoni"
+                        >
+                          <Trash2 size={13} />
+                          <span>Hapus</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Modal Project Form (Create / Edit) */}
+        {isModalOpen && (
+          <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
+            <div className="modal-container surface-raised" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-top">
+                <h2 className="heading-2">
+                  {editingProject ? `Edit: ${editingProject.title}` : 'Tambah Proyek Baru'}
+                </h2>
+                <button
+                  type="button"
+                  className="modal-close-btn"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <form onSubmit={handleSaveProject} className="modal-content-scroll">
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label">Nama Proyek *</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="e.g. Nexa Engine"
+                      value={formTitle}
+                      onChange={(e) => setFormTitle(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Tahun Rilis</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={formYear}
+                      onChange={(e) => setFormYear(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Subjudul / Deskripsi Arsitektur</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. High-Throughput Telemetry Platform"
+                    value={formSubtitle}
+                    onChange={(e) => setFormSubtitle(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label">Kategori Layanan</label>
+                    <select
+                      className="form-select"
+                      value={formCategory}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormCategory(val);
+                        if (val === 'Website Development') setFormCategoryKey('website');
+                        else if (val === 'Web Application') setFormCategoryKey('webapp');
+                        else if (val === 'Mobile Application') setFormCategoryKey('mobile');
+                        else setFormCategoryKey('custom');
+                      }}
+                    >
+                      <option value="Website Development">Website Development</option>
+                      <option value="Web Application">Web Application</option>
+                      <option value="Mobile Application">Mobile Application</option>
+                      <option value="Solusi Custom">Solusi Custom</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Status Badge / Label</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={formBadge}
+                      onChange={(e) => setFormBadge(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Ringkasan Eksekutif (Summary)</label>
+                  <textarea
+                    rows={2}
+                    className="form-textarea"
+                    value={formSummary}
+                    onChange={(e) => setFormSummary(e.target.value)}
+                    placeholder="Jelaskan peran sistem ini secara umum..."
+                  />
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label">Tantangan Rekayasa (Challenge)</label>
+                    <textarea
+                      rows={3}
+                      className="form-textarea"
+                      value={formChallenge}
+                      onChange={(e) => setFormChallenge(e.target.value)}
+                      placeholder="Apa masalah spesifik yang harus diselesaikan?"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Solusi Arsitektur (Solution)</label>
+                    <textarea
+                      rows={3}
+                      className="form-textarea"
+                      value={formSolution}
+                      onChange={(e) => setFormSolution(e.target.value)}
+                      placeholder="Pendekatan teknis yang diambil studio..."
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Tech Stack (pisahkan koma)</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={formStack}
+                    onChange={(e) => setFormStack(e.target.value)}
+                    placeholder="React, TypeScript, GSAP, WebGL, Node.js"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Deliverables Kunci (pisahkan koma)</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={formDeliverables}
+                    onChange={(e) => setFormDeliverables(e.target.value)}
+                    placeholder="Custom Product Inspector, Cart Slide Drawer, Keyboard Navigation"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Metrik / Highlights (pisahkan koma)</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={formHighlights}
+                    onChange={(e) => setFormHighlights(e.target.value)}
+                    placeholder="Lighthouse 99/100, Waktu peluncuran dingin < 1.2s"
+                  />
+                </div>
+
+                <div className="modal-submit-row">
+                  <button type="submit" className="btn btn-primary btn-lg">
+                    <Check size={16} />
+                    <span>{editingProject ? 'Simpan Perubahan' : 'Buat Proyek Baru'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-ghost"
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    Batal
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        .admin-dashboard-wrapper {
+          min-height: 100vh;
+          padding-top: 4.5rem;
+          padding-bottom: 7rem;
+          background-color: var(--color-ink);
+        }
+
+        .admin-header-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid var(--color-border);
+          margin-bottom: 2.5rem;
+        }
+
+        .admin-brand-status {
+          display: flex;
+          align-items: center;
+          gap: 1.25rem;
+        }
+
+        .admin-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          letter-spacing: 0.08em;
+          color: var(--color-white);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid var(--color-border);
+          padding: 0.35rem 0.65rem;
+          border-radius: var(--radius-xs);
+        }
+
+        .admin-title-row {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          margin-bottom: 2.5rem;
+          gap: 2rem;
+        }
+
+        @media (max-width: 860px) {
+          .admin-title-row {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+
+        .title-action-buttons {
+          display: flex;
+          align-items: center;
+          gap: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+          .title-action-buttons {
+            flex-direction: column;
+            width: 100%;
+            gap: 0.625rem;
+          }
+          .title-action-buttons button {
+            width: 100%;
+            justify-content: center;
+          }
+          .admin-dashboard-wrapper {
+            padding-top: 3.5rem;
+            padding-bottom: 4rem;
+          }
+          .projects-table-card {
+            padding: 0.875rem 0.5rem;
+            border-radius: var(--radius-sm);
+          }
+        }
+
+        .admin-tab-nav {
+          display: flex;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          border-bottom: 1px solid var(--color-border);
+          padding-bottom: 0.75rem;
+        }
+
+        .admin-tab-btn {
+          background: transparent;
+          border: 1px solid transparent;
+          color: var(--color-gray-400);
+          font-family: var(--font-body);
+          font-size: 0.875rem;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: var(--radius-xs);
+          cursor: pointer;
+          transition: all var(--duration-fast);
+        }
+
+        .admin-tab-btn:hover {
+          color: var(--color-white);
+        }
+
+        .admin-tab-btn.is-active {
+          color: var(--color-black);
+          background: var(--color-white);
+          border-color: var(--color-white);
+        }
+
+        .projects-table-card {
+          padding: 1.5rem;
+          background-color: var(--color-charcoal);
+        }
+
+        .table-responsive {
+          overflow-x: auto;
+        }
+
+        .admin-table {
+          width: 100%;
+          border-collapse: collapse;
+          text-align: left;
+          font-size: 0.875rem;
+        }
+
+        .admin-table th {
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--color-gray-500);
+          padding: 0.875rem 1rem;
+          border-bottom: 1px solid var(--color-border);
+        }
+
+        .admin-table td {
+          padding: 1.125rem 1rem;
+          border-bottom: 1px solid var(--color-border-subtle);
+          vertical-align: middle;
+        }
+
+        .table-title {
+          display: block;
+          font-family: var(--font-display);
+          color: var(--color-white);
+          font-size: 0.9375rem;
+        }
+
+        .table-sub {
+          font-size: 0.75rem;
+          color: var(--color-gray-400);
+        }
+
+        .table-mono {
+          font-family: var(--font-mono);
+          font-size: 0.8125rem;
+          color: var(--color-gray-400);
+        }
+
+        .table-badge {
+          font-size: 0.75rem;
+          color: var(--color-gray-400);
+        }
+
+        .table-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.35rem;
+        }
+
+        .action-buttons-cell {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .btn-delete-row {
+          padding: 0.5rem 0.65rem;
+          border-radius: var(--radius-xs);
+          background: rgba(255, 60, 60, 0.08);
+          border: 1px solid rgba(255, 60, 60, 0.25);
+          color: #ff8080;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.75rem;
+        }
+
+        .btn-delete-row:hover {
+          background: rgba(255, 60, 60, 0.2);
+        }
+
+        .table-quote-preview {
+          font-size: 0.8125rem;
+          color: var(--color-gray-300);
+          max-width: 380px;
+          line-height: 1.4;
+        }
+
+        .modal-submit-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-top: 1.5rem;
+          padding-top: 1.25rem;
+          border-top: 1px solid var(--color-border);
+        }
+      `}</style>
+    </div>
+  );
+}
