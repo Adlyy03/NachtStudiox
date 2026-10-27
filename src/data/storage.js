@@ -1,9 +1,9 @@
 import { projectsData } from './projects';
 import { initialTestimonials } from './testimonials';
 
-const PROJECTS_KEY = 'lichtcraft_projects_v1';
-const TESTIMONIALS_KEY = 'lichtcraft_testimonials_v1';
-const ADMIN_AUTH_KEY = 'lichtcraft_admin_session';
+const PROJECTS_KEY = 'natch_projects_v1';
+const TESTIMONIALS_KEY = 'natch_testimonials_v1';
+const ADMIN_AUTH_KEY = 'natch_admin_session';
 
 export function getStoredProjects() {
   try {
@@ -21,7 +21,7 @@ export function getStoredProjects() {
 export function saveStoredProjects(projects) {
   try {
     localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
-    window.dispatchEvent(new Event('lichtcraft_projects_changed'));
+    window.dispatchEvent(new Event('natch_projects_changed'));
   } catch (err) {
     console.error('Gagal menyimpan proyek ke localStorage', err);
   }
@@ -47,7 +47,7 @@ export function getStoredTestimonials() {
 export function saveStoredTestimonials(testimonials) {
   try {
     localStorage.setItem(TESTIMONIALS_KEY, JSON.stringify(testimonials));
-    window.dispatchEvent(new Event('lichtcraft_testimonials_changed'));
+    window.dispatchEvent(new Event('natch_testimonials_changed'));
   } catch (err) {
     console.error('Gagal menyimpan testimoni ke localStorage', err);
   }
@@ -77,5 +77,5 @@ export function setAdminSession(isAuthenticated) {
   } else {
     localStorage.removeItem(ADMIN_AUTH_KEY);
   }
-  window.dispatchEvent(new Event('lichtcraft_auth_changed'));
+  window.dispatchEvent(new Event('natch_auth_changed'));
 }

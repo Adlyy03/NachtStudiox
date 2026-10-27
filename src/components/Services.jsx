@@ -49,7 +49,7 @@ export default function Services() {
   };
 
   return (
-    <section ref={containerRef} id="services" className="section services-section" aria-label="Layanan LichtCraft">
+    <section ref={containerRef} id="services" className="section services-section" aria-label="Layanan Natch Studio">
       <div className="container">
         {/* Section Header */}
         <div className="services-header">

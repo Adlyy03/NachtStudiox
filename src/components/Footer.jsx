@@ -24,6 +24,7 @@ export default function Footer({ onNavigate }) {
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="container">
+        {/* Desktop & Tablet Top */}
         <div className="footer-top">
           <div className="footer-brand-col">
             <a
@@ -37,45 +38,54 @@ export default function Footer({ onNavigate }) {
             >
               <img
                 src="/logo-transparent.png"
-                alt="LichtCraft"
+                alt="Natch Studio"
                 className="footer-logo-img"
                 width="34"
                 height="34"
               />
-              <span>LichtCraft</span>
+              <span>Natch Studio</span>
             </a>
             <p className="footer-tagline">
               Digital experiences, crafted with intent. <br />
               Studio pengembangan produk digital independen: website performa tinggi, aplikasi web kompleks, dan mobile.
             </p>
             <div className="footer-loc">
-              <span className="loc-label">Kontak Studio Terverifikasi:</span>
-              <a href="mailto:lichttcraft@gmail.com" className="contact-highlight-link">
-                Email: lichttcraft@gmail.com
-              </a>
-              <a
-                href="https://wa.me/62895321217645"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-highlight-link"
-              >
-                WhatsApp: 0895-3212-17645
-              </a>
-              <a
-                href="https://instagram.com/lichttcraft"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-highlight-link"
-              >
-                Instagram: @lichttcraft
-              </a>
+              <span className="loc-label">Kontak Resmi:</span>
+              <div className="footer-contacts-wrap">
+                <a href="mailto:natchstudio@gmail.com" className="contact-highlight-link">
+                  natchstudio@gmail.com
+                </a>
+                <span className="contact-separator">•</span>
+                <a
+                  href="https://wa.me/62895321217645"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-highlight-link"
+                >
+                  WA: 0895-3212-17645
+                </a>
+                <span className="contact-separator">•</span>
+                <a
+                  href="https://instagram.com/natchstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-highlight-link"
+                >
+                  @natchstudio
+                </a>
+              </div>
             </div>
           </div>
 
           <div className="footer-links-grid">
             <div className="footer-col">
-              <span className="col-heading">Navigasi Halaman</span>
+              <span className="col-heading">Company & Layanan</span>
               <ul className="footer-links">
+                <li>
+                  <a href="#about" onClick={(e) => { e.preventDefault(); handleLink('#about'); }}>
+                    Tentang Studio
+                  </a>
+                </li>
                 <li>
                   <a href="#services" onClick={(e) => { e.preventDefault(); handleLink('#services'); }}>
                     Layanan
@@ -87,41 +97,35 @@ export default function Footer({ onNavigate }) {
                   </a>
                 </li>
                 <li>
+                  <a href="#team" onClick={(e) => { e.preventDefault(); handleLink('#team'); }}>
+                    Tim Inti
+                  </a>
+                </li>
+                <li>
+                  <a href="#faq" onClick={(e) => { e.preventDefault(); handleLink('#faq'); }}>
+                    FAQ Kerjasama
+                  </a>
+                </li>
+                <li>
                   <a href="#testimonials" onClick={(e) => { e.preventDefault(); handleLink('testimonials'); }}>
                     Testimoni Klien
-                  </a>
-                </li>
-                <li>
-                  <a href="#why" onClick={(e) => { e.preventDefault(); handleLink('#why'); }}>
-                    Prinsip Rekayasa
-                  </a>
-                </li>
-                <li>
-                  <a href="#process" onClick={(e) => { e.preventDefault(); handleLink('#process'); }}>
-                    Metodologi
-                  </a>
-                </li>
-                <li>
-                  <a href="#estimator" onClick={(e) => { e.preventDefault(); handleLink('#estimator'); }}>
-                    Kalkulator Scope
                   </a>
                 </li>
               </ul>
             </div>
 
-            <div className="footer-col">
-              <span className="col-heading">Disiplin Studio</span>
+            <div className="footer-col footer-col-desktop-only">
+              <span className="col-heading">Disiplin</span>
               <ul className="footer-links">
                 <li><span>Website Development</span></li>
                 <li><span>Web Application</span></li>
                 <li><span>Mobile Application</span></li>
                 <li><span>GSAP Motion Systems</span></li>
-                <li><span>Three.js Spatial Graphics</span></li>
               </ul>
             </div>
 
             <div className="footer-col">
-              <span className="col-heading">Akses Internal & Sosial</span>
+              <span className="col-heading">Akses</span>
               <ul className="footer-links">
                 <li>
                   <a
@@ -130,50 +134,39 @@ export default function Footer({ onNavigate }) {
                     rel="noopener noreferrer"
                     className="wa-link"
                   >
-                    Direct Chat WhatsApp ↗
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://instagram.com/lichttcraft"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Instagram @lichttcraft ↗
+                    Direct WhatsApp ↗
                   </a>
                 </li>
                 <li>
                   <a
                     href="#admin"
                     onClick={(e) => { e.preventDefault(); handleLink('admin'); }}
-                    style={{ color: 'var(--color-gray-500)', fontSize: '0.8125rem' }}
+                    style={{ color: 'var(--color-gray-400)' }}
                   >
-                    Admin Portofolio CRUD 🔒
+                    Admin Portofolio 🔒
                   </a>
-                </li>
-                <li>
-                  <span className="status-badge">Available for Q4 / Q1 Projects</span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div className="footer-bottom">
           <div className="footer-legal">
-            <span>© {CURRENT_YEAR} LichtCraft Studio. Seluruh hak cipta dilindungi undang-undang.</span>
+            <span>© {CURRENT_YEAR} Natch Studio.</span>
             <span className="legal-dot">•</span>
-            <span>lichttcraft@gmail.com • 0895321217645</span>
+            <span>natchstudio@gmail.com</span>
           </div>
 
           <button
             type="button"
             className="back-to-top-btn"
             onClick={scrollToTop}
-            aria-label="Kembali ke bagian paling atas halaman"
+            aria-label="Kembali ke atas"
           >
-            <span>Kembali ke Atas</span>
-            <ArrowUp size={14} aria-hidden="true" />
+            <span>Ke Atas</span>
+            <ArrowUp size={12} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -182,31 +175,47 @@ export default function Footer({ onNavigate }) {
         .site-footer {
           background-color: var(--color-black);
           border-top: 1px solid var(--color-border);
-          padding-top: clamp(4.5rem, 8vw, 7rem);
-          padding-bottom: 3rem;
+          padding-top: clamp(3.5rem, 6vw, 6rem);
+          padding-bottom: 2.5rem;
           position: relative;
+        }
+
+        @media (max-width: 640px) {
+          .site-footer {
+            padding-top: 1.5rem;
+            padding-bottom: 1.25rem;
+          }
         }
 
         .footer-top {
           display: grid;
-          grid-template-columns: 1.15fr 1.35fr;
-          gap: clamp(3rem, 6vw, 6rem);
-          padding-bottom: clamp(3rem, 5vw, 5rem);
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: clamp(2rem, 5vw, 5rem);
+          padding-bottom: clamp(2rem, 4vw, 3.5rem);
           border-bottom: 1px solid var(--color-border-subtle);
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
           .footer-top {
-            grid-template-columns: 1fr;
-            gap: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            padding-bottom: 1.25rem;
           }
         }
 
         .footer-logo-img {
-          width: 32px;
-          height: 32px;
+          width: 30px;
+          height: 30px;
           object-fit: contain;
-          filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+          filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        @media (max-width: 640px) {
+          .footer-logo-img {
+            width: 24px;
+            height: 24px;
+          }
         }
 
         .contact-highlight-link {
@@ -220,31 +229,47 @@ export default function Footer({ onNavigate }) {
           text-decoration: underline;
         }
 
+        .contact-separator {
+          color: var(--color-gray-700);
+        }
+
+        @media (max-width: 640px) {
+          .contact-separator {
+            display: none;
+          }
+        }
+
         .footer-wordmark {
           display: inline-flex;
           align-items: center;
           gap: 0.625rem;
           font-family: var(--font-display);
-          font-size: 1.375rem;
+          font-size: 1.25rem;
           font-weight: 700;
           letter-spacing: -0.03em;
           color: var(--color-white);
-          margin-bottom: 1.25rem;
+          margin-bottom: 1rem;
         }
 
-        .brand-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background-color: var(--color-white);
+        @media (max-width: 640px) {
+          .footer-wordmark {
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+          }
         }
 
         .footer-tagline {
-          font-size: 0.9375rem;
+          font-size: 0.875rem;
           color: var(--color-gray-400);
-          line-height: 1.6;
+          line-height: 1.5;
           max-width: 440px;
-          margin-bottom: 2rem;
+          margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 640px) {
+          .footer-tagline {
+            display: none; /* Hide long paragraph on mobile to keep footer short */
+          }
         }
 
         .footer-loc {
@@ -253,45 +278,99 @@ export default function Footer({ onNavigate }) {
           color: var(--color-gray-400);
           display: flex;
           flex-direction: column;
-          gap: 0.25rem;
+          gap: 0.35rem;
+        }
+
+        @media (max-width: 640px) {
+          .footer-loc {
+            font-size: 0.6875rem;
+          }
         }
 
         .loc-label {
           color: var(--color-gray-500);
           text-transform: uppercase;
           letter-spacing: 0.08em;
+          font-size: 0.6875rem;
+        }
+
+        @media (max-width: 640px) {
+          .loc-label {
+            display: none;
+          }
+        }
+
+        .footer-contacts-wrap {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.625rem;
+        }
+
+        @media (max-width: 640px) {
+          .footer-contacts-wrap {
+            gap: 0.4rem 0.75rem;
+          }
         }
 
         .footer-links-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+          .footer-links-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+          }
+        }
+
+        .footer-col-desktop-only {
+          display: block;
         }
 
         @media (max-width: 640px) {
-          .footer-links-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+          .footer-col-desktop-only {
+            display: none; /* Hide discipline column on mobile */
           }
         }
 
         .col-heading {
           display: block;
           font-family: var(--font-mono);
-          font-size: 0.75rem;
+          font-size: 0.6875rem;
           text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: var(--color-gray-400);
-          margin-bottom: 1.25rem;
+          letter-spacing: 0.08em;
+          color: var(--color-gray-500);
+          margin-bottom: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+          .col-heading {
+            display: none;
+          }
         }
 
         .footer-links {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
-          font-size: 0.875rem;
+          gap: 0.625rem;
+          font-size: 0.8125rem;
           color: var(--color-gray-400);
+        }
+
+        @media (max-width: 640px) {
+          .footer-links {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.35rem 0.75rem;
+            font-size: 0.71875rem;
+          }
         }
 
         .footer-links a {
@@ -303,39 +382,27 @@ export default function Footer({ onNavigate }) {
           color: var(--color-white);
         }
 
-        .status-badge {
-          display: inline-block;
-          font-family: var(--font-mono);
-          font-size: 0.6875rem;
-          padding: 0.25rem 0.5rem;
-          border-radius: var(--radius-xs);
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid var(--color-border);
-          color: var(--color-white);
-        }
-
         .footer-bottom {
-          padding-top: 2.25rem;
+          padding-top: 1.25rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-size: 0.8125rem;
+          font-size: 0.75rem;
           color: var(--color-gray-500);
-          gap: 1.5rem;
+          gap: 1rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .footer-bottom {
-            flex-direction: column;
-            align-items: flex-start;
+            padding-top: 0.875rem;
+            font-size: 0.6875rem;
           }
         }
 
         .footer-legal {
           display: flex;
-          flex-wrap: wrap;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
         }
 
         .legal-dot {
@@ -345,13 +412,13 @@ export default function Footer({ onNavigate }) {
         .back-to-top-btn {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.35rem;
           background: transparent;
           border: 1px solid var(--color-border);
           color: var(--color-gray-400);
-          padding: 0.45rem 0.875rem;
+          padding: 0.35rem 0.65rem;
           border-radius: var(--radius-xs);
-          font-size: 0.75rem;
+          font-size: 0.6875rem;
           font-family: var(--font-mono);
           cursor: pointer;
           transition: all var(--duration-fast) var(--ease-out);
@@ -360,7 +427,6 @@ export default function Footer({ onNavigate }) {
         .back-to-top-btn:hover {
           color: var(--color-white);
           border-color: var(--color-border-strong);
-          background: rgba(255, 255, 255, 0.04);
         }
       `}</style>
     </footer>

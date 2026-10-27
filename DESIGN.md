@@ -1,11 +1,11 @@
-# LichtCraft --- Design System & Visual Design Specification
+# Natch Studio --- Design System & Visual Design Specification
 
 **Versi:** 1.0\
 **Arah visual:** monochrome premium, editorial, dimensional, motion-led
 
 ## 1. Konsep Visual
 
-LichtCraft tampil seperti studio digital modern: tegas, minimal, berani
+Natch Studio tampil seperti studio digital modern: tegas, minimal, berani
 memakai ruang kosong, dengan detail cahaya dan bayangan yang memberi
 kedalaman. Nuansa B&W tidak berarti semua elemen harus datar; dimensi
 dibangun lewat kontras, gradient abu-abu, blur, border transparan,
@@ -174,7 +174,7 @@ Contoh token spacing:
 
 ### A. Header / Navigation
 
--   Wordmark `LichtCraft` di kiri.
+-   Wordmark `Natch Studio` di kiri.
 -   Link anchor ringkas di tengah/kanan.
 -   CTA di kanan jika tujuan kontak sudah tersedia.
 -   Background transparan di atas hero; dapat menjadi gelap
@@ -199,7 +199,7 @@ Contoh token spacing:
 Contoh arah copy (draft, bisa direvisi): \> Digital experiences, crafted
 with intent.
 
-Subheadline draft: \> LichtCraft membangun website dan aplikasi digital
+Subheadline draft: \> Natch Studio membangun website dan aplikasi digital
 yang dirancang untuk membantu bisnis tampil lebih kuat dan bekerja lebih
 baik.
 
@@ -233,7 +233,7 @@ kontak siap)
     jangan berpura-pura menampilkan klien nyata.
 -   Klik proyek dapat membuka detail/case study di fase berikutnya.
 
-### F. Why LichtCraft
+### F. Why Natch Studio
 
 -   Tiga prinsip, misalnya: purposeful design, reliable engineering,
     clear collaboration.

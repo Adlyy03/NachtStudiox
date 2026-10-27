@@ -46,12 +46,13 @@ export default function Navigation({ onNavigate, currentPage = 'home' }) {
   };
 
   const navLinks = [
+    { label: 'Tentang', href: '#about' },
     { label: 'Layanan', href: '#services' },
     { label: 'Portofolio', href: '#work' },
     { label: 'Testimoni', href: '#testimonials' },
-    { label: 'Prinsip', href: '#why' },
-    { label: 'Proses', href: '#process' },
-    { label: 'Estimasi Biaya', href: '#estimator' },
+    { label: 'Tim', href: '#team' },
+    { label: 'FAQ', href: '#faq' },
+    { label: 'Estimator', href: '#estimator' },
   ];
 
   return (
@@ -64,7 +65,7 @@ export default function Navigation({ onNavigate, currentPage = 'home' }) {
         <a
           href="#"
           className="wordmark"
-          aria-label="LichtCraft Home"
+          aria-label="Natch Studio Home"
           onClick={(e) => {
             e.preventDefault();
             onNavigate('home');
@@ -73,12 +74,12 @@ export default function Navigation({ onNavigate, currentPage = 'home' }) {
         >
           <img
             src="/logo-transparent.png"
-            alt="LichtCraft Logo"
+            alt="Natch Studio Logo"
             className="wordmark-emblem-img"
             width="32"
             height="32"
           />
-          <span className="wordmark-text">LichtCraft</span>
+          <span className="wordmark-text">Natch Studio</span>
         </a>
 
         {/* Desktop Navigation Links */}
@@ -187,11 +188,11 @@ export default function Navigation({ onNavigate, currentPage = 'home' }) {
                 <ArrowUpRight size={16} />
               </a>
               <a
-                href="mailto:lichttcraft@gmail.com"
+                href="mailto:natchstudio@gmail.com"
                 className="btn btn-secondary btn-sm"
                 style={{ width: '100%' }}
               >
-                <span>Email: lichttcraft@gmail.com</span>
+                <span>Email: natchstudio@gmail.com</span>
               </a>
             </div>
           </nav>

@@ -34,27 +34,27 @@ export default function WhyUs() {
     {
       aspect: 'Arsitektur Kode',
       conventional: 'Template WordPress / Page builder kaku dengan plugin berlebih',
-      lichtcraft: 'Clean codebase modular (React/Vite/TypeScript) dibangun dari nol',
+      natchStudio: 'Clean codebase modular (React/Vite/TypeScript) dibangun dari nol',
     },
     {
       aspect: 'Penetapan Harga',
       conventional: 'Paket kaku dengan fitur dibatasi atau biaya tersembunyi',
-      lichtcraft: 'Custom quotation transparan berdasarkan kompleksitas & kebutuhan',
+      natchStudio: 'Custom quotation transparan berdasarkan kompleksitas & kebutuhan',
     },
     {
       aspect: 'Performa & SEO',
       conventional: 'Skor Lighthouse medioker (50–70) dengan layout shift tinggi',
-      lichtcraft: 'Diuji ketat: 95+ skor performa, zero CLS, sub-detik LCP',
+      natchStudio: 'Diuji ketat: 95+ skor performa, zero CLS, sub-detik LCP',
     },
     {
       aspect: 'Aksesibilitas & Motion',
       conventional: 'Animasi acak tanpa hierarki yang memperlambat browser',
-      lichtcraft: 'GSAP terkurasi dengan dukungan penuh reduced-motion & keyboard WCAG',
+      natchStudio: 'GSAP terkurasi dengan dukungan penuh reduced-motion & keyboard WCAG',
     },
   ];
 
   return (
-    <section ref={containerRef} id="why" className="section why-section" aria-label="Mengapa LichtCraft">
+    <section ref={containerRef} id="why" className="section why-section" aria-label="Mengapa Natch Studio">
       <div className="container">
         {/* Header */}
         <div className="why-header why-reveal">
@@ -64,7 +64,7 @@ export default function WhyUs() {
           </span>
           <h2 className="heading-1 why-title">
             Mengapa bermitra dengan <br />
-            LichtCraft?
+            Natch Studio?
           </h2>
           <p className="body-large why-intro">
             Kami bukan agensi massal yang merakit template seragam. Kami adalah studio rekayasa produk digital independen
@@ -110,7 +110,7 @@ export default function WhyUs() {
               <h3 className="heading-2 comparison-title">Perbedaan Nyata di Ranah Eksekusi</h3>
             </div>
             <p className="body-small comparison-sub">
-              Bagaimana standar rekayasa LichtCraft melindungi investasi produk digital Anda jangka panjang.
+              Bagaimana standar rekayasa Natch Studio melindungi investasi produk digital Anda jangka panjang.
             </p>
           </div>
 
@@ -120,7 +120,7 @@ export default function WhyUs() {
                 <tr>
                   <th scope="col" className="col-aspect">Dimensi</th>
                   <th scope="col" className="col-conv">Pendekatan Agensi Konvensional</th>
-                  <th scope="col" className="col-licht">Standar Studio LichtCraft</th>
+                  <th scope="col" className="col-natch">Standar Natch Studio</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,9 +131,9 @@ export default function WhyUs() {
                       <span className="icon-cross" aria-hidden="true">✕</span>
                       <span>{row.conventional}</span>
                     </td>
-                    <td className="row-licht">
+                    <td className="row-natch">
                       <span className="icon-check" aria-hidden="true">✓</span>
-                      <strong>{row.lichtcraft}</strong>
+                      <strong>{row.natchStudio}</strong>
                     </td>
                   </tr>
                 ))}
@@ -289,7 +289,7 @@ export default function WhyUs() {
           width: 38%;
         }
 
-        .col-licht {
+        .col-natch {
           width: 40%;
         }
 
@@ -319,7 +319,7 @@ export default function WhyUs() {
           flex-shrink: 0;
         }
 
-        .row-licht {
+        .row-natch {
           color: var(--color-white);
           display: flex;
           align-items: flex-start;

@@ -7,7 +7,7 @@ export const initialTestimonials = [
     projectType: 'Web Application',
     year: '2024',
     content:
-      'LichtCraft merancang arsitektur dashboard telemetri kami dengan presisi luar biasa. Latensi render WebGL sub-16ms dan antarmuka gelap kontras tingginya mendapat apresiasi penuh dari tim engineering kami.',
+      'Natch Studio merancang arsitektur dashboard telemetri kami dengan presisi luar biasa. Latensi render WebGL sub-16ms dan antarmuka gelap kontras tingginya mendapat apresiasi penuh dari tim engineering kami.',
     rating: 5,
     verified: true,
     date: '12 Okt 2024',

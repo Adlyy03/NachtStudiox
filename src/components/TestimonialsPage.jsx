@@ -28,11 +28,11 @@ export default function TestimonialsPage({ onBackToHome }) {
       setTestimonials(getStoredTestimonials());
       setIsAdmin(checkAdminSession());
     };
-    window.addEventListener('lichtcraft_testimonials_changed', handleUpdate);
-    window.addEventListener('lichtcraft_auth_changed', handleUpdate);
+    window.addEventListener('natch_testimonials_changed', handleUpdate);
+    window.addEventListener('natch_auth_changed', handleUpdate);
     return () => {
-      window.removeEventListener('lichtcraft_testimonials_changed', handleUpdate);
-      window.removeEventListener('lichtcraft_auth_changed', handleUpdate);
+      window.removeEventListener('natch_testimonials_changed', handleUpdate);
+      window.removeEventListener('natch_auth_changed', handleUpdate);
     };
   }, []);
 
@@ -112,7 +112,7 @@ export default function TestimonialsPage({ onBackToHome }) {
           </h1>
           <p className="body-large testi-lead">
             Kami membangun reputasi studio melalui transparansi penuh. Setiap testimoni di bawah ditulis langsung oleh
-            partner dan klien yang telah berkolaborasi dalam produksi produk digital bersama LichtCraft.
+            partner dan klien yang telah berkolaborasi dalam produksi produk digital bersama Natch Studio.
           </p>
         </header>
 
@@ -122,7 +122,7 @@ export default function TestimonialsPage({ onBackToHome }) {
             <div className="form-card-header">
               <h2 className="heading-2">Tulis Testimoni Anda</h2>
               <p className="body-small">
-                Bagikan pengalaman kerja, ketepatan jadwal, dan performa produk digital yang dibangun bersama LichtCraft.
+                Bagikan pengalaman kerja, ketepatan jadwal, dan performa produk digital yang dibangun bersama Natch Studio.
               </p>
             </div>
 

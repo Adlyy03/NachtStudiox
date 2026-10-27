@@ -22,7 +22,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 
-const ADMIN_DEFAULT_PASS = 'lichtcraft2024';
+const ADMIN_DEFAULT_PASS = 'natch2024';
 const DEFAULT_YEAR = new Date().getFullYear().toString();
 
 export default function AdminDashboard({ onBackToHome }) {
@@ -64,13 +64,13 @@ export default function AdminDashboard({ onBackToHome }) {
       setTestimonials(getStoredTestimonials());
       setIsAuthenticated(checkAdminSession());
     };
-    window.addEventListener('lichtcraft_projects_changed', refreshData);
-    window.addEventListener('lichtcraft_testimonials_changed', refreshData);
-    window.addEventListener('lichtcraft_auth_changed', refreshData);
+    window.addEventListener('natch_projects_changed', refreshData);
+    window.addEventListener('natch_testimonials_changed', refreshData);
+    window.addEventListener('natch_auth_changed', refreshData);
     return () => {
-      window.removeEventListener('lichtcraft_projects_changed', refreshData);
-      window.removeEventListener('lichtcraft_testimonials_changed', refreshData);
-      window.removeEventListener('lichtcraft_auth_changed', refreshData);
+      window.removeEventListener('natch_projects_changed', refreshData);
+      window.removeEventListener('natch_testimonials_changed', refreshData);
+      window.removeEventListener('natch_auth_changed', refreshData);
     };
   }, []);
 
@@ -230,7 +230,7 @@ export default function AdminDashboard({ onBackToHome }) {
               <div className="login-icon-box">
                 <Lock size={20} className="text-white" />
               </div>
-              <h1 className="heading-2">Admin Studio LichtCraft</h1>
+              <h1 className="heading-2">Admin Natch Studio</h1>
               <p className="body-small text-muted">
                 Autentikasi sesi untuk mengelola portofolio proyek dan testimoni klien.
               </p>
@@ -252,7 +252,7 @@ export default function AdminDashboard({ onBackToHome }) {
                   required
                 />
                 <span className="pass-hint">
-                  Default pass: <code>lichtcraft2024</code> atau <code>admin</code>
+                  Default pass: <code>natch2024</code> atau <code>admin</code>
                 </span>
               </div>
 
@@ -552,7 +552,7 @@ export default function AdminDashboard({ onBackToHome }) {
                       <span className="dot" />
                       <span className="dot" />
                       <span className="dot" />
-                      <span className="art-route">/lichtcraft/spec/{formId || 'draft'}</span>
+                      <span className="art-route">/natch/spec/{formId || 'draft'}</span>
                     </div>
                     <div className="art-body">
                       <div className="art-grid-lines">

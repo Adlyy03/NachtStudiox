@@ -50,13 +50,7 @@ export default function TrustStatement() {
 
           <div className="trust-reveal trust-body-grid">
             <p className="body-large">
-              Di era di mana antarmuka digital semakin seragam oleh generator otomatis dan template murahan, LichtCraft
-              memilih arah sebaliknya: kami memperlakukan setiap proyek sebagai karya rekayasa unik dengan estetika
-              monokromatik yang abadi, tipografi presisi, dan arsitektur yang dirancang untuk bertahan lama.
-            </p>
-            <p className="body-regular">
-              Kami tidak membebankan paket harga kaku yang membatasi ambisi produk Anda. Setiap lingkup kerja dianalisis
-              secara transparan berdasarkan kompleksitas logika, volume data, dan integrasi nyata.
+              Kami menolak template massal dan arsitektur rapuh. Setiap produk digital dibangun di atas tipografi kuat, kecepatan render instan, dan struktur data yang siap diskalakan.
             </p>
           </div>
 
@@ -64,32 +58,31 @@ export default function TrustStatement() {
           <div className="trust-reveal pillars-grid">
             <div className="pillar-item">
               <div className="pillar-icon-box">
-                <Zap size={20} className="pillar-icon" />
+                <Zap size={14} className="pillar-icon" />
               </div>
-              <h3 className="heading-3 pillar-title">Performa Deterministik</h3>
+              <h3 className="heading-3 pillar-title">Performa Sub-Detik</h3>
               <p className="body-small">
-                Optimasi bundel mendalam, zero layout shift (CLS: 0), dan pemuatan aset cerdas untuk pengalaman instan.
+                Bundel ramping, zero layout shift (CLS: 0), muat cepat di jaringan seluler.
               </p>
             </div>
 
             <div className="pillar-item">
               <div className="pillar-icon-box">
-                <Layers size={20} className="pillar-icon" />
+                <Layers size={14} className="pillar-icon" />
               </div>
-              <h3 className="heading-3 pillar-title">Tipografi & Ruang</h3>
+              <h3 className="heading-3 pillar-title">Tipografi Presisi</h3>
               <p className="body-small">
-                Hierarki editorial dengan ritme vertikal terukur. Konten Anda menjadi pusat gravitasi tanpa gangguan
-                warna norak.
+                Hierarki editorial terukur, visual monokromatik fokus tanpa distorsi warna.
               </p>
             </div>
 
             <div className="pillar-item">
               <div className="pillar-icon-box">
-                <ShieldCheck size={20} className="pillar-icon" />
+                <ShieldCheck size={14} className="pillar-icon" />
               </div>
-              <h3 className="heading-3 pillar-title">Aksesibilitas & Ketahanan</h3>
+              <h3 className="heading-3 pillar-title">Aksesibilitas WCAG</h3>
               <p className="body-small">
-                Dukungan keyboard navigasi penuh, kontras WCAG AA, dan fallback mulus untuk perangkat dengan reduced motion.
+                Navigasi keyboard penuh, kontras tinggi, dan ramah reduced-motion.
               </p>
             </div>
           </div>

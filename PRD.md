@@ -1,12 +1,12 @@
-# LichtCraft --- Product Requirements Document (PRD)
+# Natch Studio --- Product Requirements Document (PRD)
 
 **Versi:** 1.0\
 **Status:** Draft untuk persetujuan sebelum development\
-**Produk:** Website landing page dan showcase jasa digital LichtCraft
+**Produk:** Website landing page dan showcase jasa digital Natch Studio
 
 ## 1. Ringkasan Produk
 
-LichtCraft adalah brand jasa pengembangan produk digital yang menawarkan
+Natch Studio adalah brand jasa pengembangan produk digital yang menawarkan
 pembuatan website, web application, dan mobile application. Website
 berfungsi sebagai storefront digital yang menjelaskan layanan,
 menunjukkan kualitas kerja melalui portofolio, membangun kepercayaan,
@@ -18,7 +18,7 @@ sekadar dekorasi atau menghambat pengunjung memahami layanan.
 
 ## 2. Tujuan Bisnis
 
-1.  Membuat LichtCraft terlihat profesional dan berbeda dari penyedia
+1.  Membuat Natch Studio terlihat profesional dan berbeda dari penyedia
     jasa generik.
 2.  Menjelaskan layanan dan kemampuan dengan cepat.
 3.  Menampilkan proyek sebagai bukti kualitas.
@@ -31,7 +31,7 @@ sekadar dekorasi atau menghambat pengunjung memahami layanan.
 
 ### Indikator keberhasilan
 
--   Pengunjung dapat memahami apa yang dikerjakan LichtCraft dalam
+-   Pengunjung dapat memahami apa yang dikerjakan Natch Studio dalam
     beberapa detik.
 -   Pengunjung dapat menemukan layanan, proses kerja, dan portofolio
     tanpa kebingungan.
@@ -120,7 +120,7 @@ penyimpanan yang sesuai serta autentikasi dan otorisasi.
 
 Landing page satu halaman dengan navigasi anchor: 1. Header / Navigation
 2. Hero 3. Trust statement / value proposition 4. Services 5. Selected
-Work / Portfolio 6. Why LichtCraft 7. Process 8. CTA 9. Footer
+Work / Portfolio 6. Why Natch Studio 7. Process 8. CTA 9. Footer
 
 Halaman tambahan yang mungkin dikembangkan: - Detail proyek / case
 study. - Login admin. - Dashboard admin. - Form tambah/edit proyek.
@@ -136,7 +136,7 @@ study. - Login admin. - Dashboard admin. - Form tambah/edit proyek.
 
 ### F-02: Hero
 
--   Menampilkan nama LichtCraft, proposisi nilai, deskripsi singkat, dan
+-   Menampilkan nama Natch Studio, proposisi nilai, deskripsi singkat, dan
     CTA.
 -   Menampilkan visual monochrome yang dinamis.
 -   CTA memiliki tujuan yang jelas; sebelum kontak ditentukan, gunakan
@@ -257,9 +257,9 @@ sederhana.
 
 ## 10. Konten yang Dibutuhkan
 
-Sebelum publikasi: - Logo/wordmark LichtCraft atau persetujuan
+Sebelum publikasi: - Logo/wordmark Natch Studio atau persetujuan
 penggunaan wordmark tipografi. - Deskripsi singkat brand. - Daftar
-layanan final. - Proyek nyata, screenshot, peran LichtCraft, hasil, dan
+layanan final. - Proyek nyata, screenshot, peran Natch Studio, hasil, dan
 teknologi yang benar-benar digunakan. - Testimoni atau logo klien hanya
 dengan izin dan data yang valid. - Email/WhatsApp/kanal kontak. - Domain
 dan informasi legal bila diperlukan.

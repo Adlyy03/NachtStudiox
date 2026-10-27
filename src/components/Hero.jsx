@@ -85,7 +85,7 @@ export default function Hero() {
             <div className="hero-meta">
               <span className="eyebrow">
                 <span className="eyebrow-dot" />
-                LICHTCRAFT // DIGITAL STUDIO
+                NATCH STUDIO // DIGITAL STUDIO
               </span>
             </div>
 
@@ -117,14 +117,14 @@ export default function Hero() {
                 <div className="spec-logo-box">
                   <img
                     src="/logo-transparent.png"
-                    alt="LichtCraft"
+                    alt="Natch Studio"
                     className="spec-emblem-img"
                     width="36"
                     height="36"
                   />
                 </div>
                 <div>
-                  <strong className="spec-brand-name">LichtCraft</strong>
+                  <strong className="spec-brand-name">Natch Studio</strong>
                   <span className="spec-brand-sub">Software & Design Studio</span>
                 </div>
               </div>

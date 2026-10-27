@@ -18,8 +18,8 @@ export default function SelectedWork({ onNavigateToAdmin }) {
     const handleUpdate = () => {
       setProjects(getStoredProjects());
     };
-    window.addEventListener('lichtcraft_projects_changed', handleUpdate);
-    return () => window.removeEventListener('lichtcraft_projects_changed', handleUpdate);
+    window.addEventListener('natch_projects_changed', handleUpdate);
+    return () => window.removeEventListener('natch_projects_changed', handleUpdate);
   }, []);
 
   const categories = [
@@ -152,7 +152,7 @@ export default function SelectedWork({ onNavigateToAdmin }) {
                         <span className="dot" />
                         <span className="dot" />
                         <span className="dot" />
-                        <span className="art-route">/lichtcraft/spec/{project.id}</span>
+                        <span className="art-route">/natch/spec/{project.id}</span>
                       </div>
                       <div className="art-body">
                         <div className="art-grid-lines">

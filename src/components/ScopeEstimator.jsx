@@ -63,7 +63,7 @@ export default function ScopeEstimator() {
 
   const modulesList = [
     { id: 'auth', label: 'Autentikasi & RBAC (Role-Based Access)' },
-    { id: 'motion', label: 'GSAP Motion & Visual 3D Three.js' },
+    { id: 'motion', label: 'GSAP Motion & Interaktivitas UI' },
     { id: 'cms', label: 'Headless CMS (Sanity / Strapi / Custom)' },
     { id: 'api', label: 'Integrasi Third-Party API & Payment Gateway' },
     { id: 'realtime', label: 'Real-time WebSocket & Live Data Stream' },
@@ -93,7 +93,7 @@ export default function ScopeEstimator() {
       .map((m) => `- ${m.label}`)
       .join('\n');
 
-    return `[BRIEFING PROYEK LICHTCRAFT]
+    return `[BRIEFING PROYEK NATCH STUDIO]
 Nama Klien / Tim: ${clientName || '(Belum diisi)'}
 Kontak Email: ${clientEmail || '(Belum diisi)'}
 Platform: ${getPlatformLabel()}
@@ -104,7 +104,7 @@ ${selectedLabels || '- Kebutuhan custom'}
 Catatan Tambahan:
 ${projectNote || 'Tidak ada catatan tambahan.'}
 ------------------------------------
-Disusun melalui LichtCraft Scope Engine`;
+Disusun melalui Natch Studio Scope Engine`;
   };
 
   const handleCopyBriefing = () => {
@@ -137,7 +137,7 @@ Disusun melalui LichtCraft Scope Engine`;
             dapatkan kalkulasi transparan.
           </h2>
           <p className="body-large estimator-lead">
-            LichtCraft tidak menggunakan biaya seragam palsu. Gunakan konfigurator di bawah untuk merumuskan parameter
+            Natch Studio tidak menggunakan biaya seragam palsu. Gunakan konfigurator di bawah untuk merumuskan parameter
             produk digital Anda. Tim engineering kami akan meninjau dan mengirimkan proposal teknis yang presisi.
           </p>
         </div>
@@ -264,7 +264,7 @@ Disusun melalui LichtCraft Scope Engine`;
                     <h4 className="heading-3">Spesifikasi Berhasil Disusun</h4>
                     <p className="body-small">
                       Brief proyek untuk <strong>{clientName || 'Partner'}</strong> siap dikirimkan langsung ke tim teknis
-                      LichtCraft via WhatsApp atau Email resmi kami.
+                      Natch Studio via WhatsApp atau Email resmi kami.
                     </p>
 
                     <div className="direct-contact-action-box">
@@ -278,13 +278,13 @@ Disusun melalui LichtCraft Scope Engine`;
                         <span>Kirim Langsung ke WA (0895-3212-17645)</span>
                       </a>
                       <a
-                        href={`mailto:lichttcraft@gmail.com?subject=${encodeURIComponent(
+                        href={`mailto:natchstudio@gmail.com?subject=${encodeURIComponent(
                           `Pengajuan Proyek ${getPlatformLabel()} - ${clientName || 'Klien'}`
                         )}&body=${encodeURIComponent(generateBriefingText())}`}
                         className="btn btn-secondary btn-sm"
                         style={{ width: '100%', marginTop: '0.5rem' }}
                       >
-                        <span>Kirim Salinan ke lichttcraft@gmail.com</span>
+                        <span>Kirim Salinan ke natchstudio@gmail.com</span>
                       </a>
                     </div>
 
@@ -469,7 +469,67 @@ Disusun melalui LichtCraft Scope Engine`;
 
         @media (max-width: 640px) {
           .radio-cards-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+          }
+          .radio-card {
+            padding: 0.625rem 0.5rem;
+            gap: 0.5rem;
+          }
+          .radio-card-title {
+            font-size: 0.75rem;
+            margin-bottom: 0.125rem;
+          }
+          .radio-card-desc {
+            font-size: 0.625rem;
+            line-height: 1.25;
+          }
+          .card-radio-dot {
+            width: 10px;
+            height: 10px;
+            margin-top: 0.15rem;
+          }
+          .tier-pills-row {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.375rem;
+          }
+          .tier-pill {
+            padding: 0.5rem 0.375rem;
+            gap: 0.15rem;
+          }
+          .tier-pill strong {
+            font-size: 0.6875rem;
+          }
+          .tier-sprint {
+            font-size: 0.5625rem;
+          }
+          .modules-checkbox-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.375rem;
+          }
+          .module-checkbox-btn {
+            padding: 0.5rem 0.375rem;
+            gap: 0.375rem;
+          }
+          .checkbox-square {
+            width: 12px;
+            height: 12px;
+          }
+          .module-text {
+            font-size: 0.625rem;
+            line-height: 1.2;
+          }
+          .summary-card {
+            padding: 1rem 0.875rem;
+          }
+          .summary-title {
+            font-size: 0.9375rem;
+          }
+          .metric-row {
+            font-size: 0.75rem;
+          }
+          .form-label {
+            font-size: 0.6875rem;
           }
         }
 
@@ -540,12 +600,6 @@ Disusun melalui LichtCraft Scope Engine`;
           gap: 0.75rem;
         }
 
-        @media (max-width: 640px) {
-          .tier-pills-row {
-            grid-template-columns: 1fr;
-          }
-        }
-
         .tier-pill {
           padding: 1rem 0.875rem;
           border-radius: var(--radius-sm);
@@ -583,12 +637,6 @@ Disusun melalui LichtCraft Scope Engine`;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 0.625rem;
-        }
-
-        @media (max-width: 640px) {
-          .modules-checkbox-grid {
-            grid-template-columns: 1fr;
-          }
         }
 
         .module-checkbox-btn {
