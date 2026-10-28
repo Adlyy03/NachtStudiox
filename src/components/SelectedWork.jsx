@@ -1,12 +1,33 @@
 import { useState, useEffect, useRef } from 'react';
 import { getStoredProjects } from '../data/storage';
 import ProjectModal from './ProjectModal';
-import { ArrowUpRight, Inbox, Shield } from 'lucide-react';
+import { ArrowUpRight, Inbox, Shield, Globe, Layers } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Authentic GitHub vector icon
+function GithubIcon({ size = 13, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
 
 export default function SelectedWork({ onNavigateToAdmin }) {
   const [projects, setProjects] = useState(getStoredProjects());
@@ -48,8 +69,8 @@ export default function SelectedWork({ onNavigateToAdmin }) {
         },
         opacity: 0,
         y: 28,
-        stagger: 0.12,
-        duration: 0.8,
+        stagger: 0.1,
+        duration: 0.7,
         ease: 'power3.out',
       });
     },
@@ -74,10 +95,10 @@ export default function SelectedWork({ onNavigateToAdmin }) {
 
           <div className="work-header-meta">
             <p className="body-regular work-subtitle">
-              Sesuai panduan etika studio, seluruh proyek di bawah adalah arsitektur riil yang kami bangun sebagai
-              prototipe produksi dan cetak biru sistem.
+              Setiap proyek di bawah adalah sistem produksi nyata dengan arsitektur kode bersih, performa tinggi, dan
+              dokumentasi spesifikasi teknis lengkap.
             </p>
-            {/* Category Filter Pills */}
+            {/* Category Filter Pills & Admin Shortcut */}
             <div className="filter-and-admin-row">
               <div className="filter-bar" role="tablist" aria-label="Filter kategori portofolio">
                 {categories.map((cat) => (
@@ -115,7 +136,7 @@ export default function SelectedWork({ onNavigateToAdmin }) {
             <Inbox size={36} className="empty-icon" />
             <h3 className="heading-3">Belum Ada Proyek Dalam Kategori Ini</h3>
             <p className="body-small">
-              Tidak ada arsip yang cocok dengan filter yang dipilih. Silakan pilih kategori lain atau reset ke "Semua Proyek".
+              Tidak ada arsip yang cocok dengan filter yang dipilih. Silakan pilih kategori lain atau reset ke &quot;Semua Proyek&quot;.
             </p>
             <button
               type="button"
@@ -128,25 +149,31 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           </div>
         ) : (
           <div className="work-grid">
-            {filteredProjects.map((project, index) => {
-              const isLarge = index === 0 && activeCategory === 'all';
-              return (
-                <article
-                  key={project.id}
-                  className={`work-card surface-card work-card-anim ${isLarge ? 'work-card-large' : ''}`}
-                  onClick={() => setSelectedProject(project)}
-                  tabIndex={0}
-                  role="button"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedProject(project);
-                    }
-                  }}
-                  aria-label={`Buka case study untuk ${project.title}`}
-                >
-                  {/* Visual Preview Graphic */}
-                  <div className="work-visual-frame">
+            {filteredProjects.map((project) => (
+              <article
+                key={project.id}
+                className="work-card surface-card work-card-anim"
+                onClick={() => setSelectedProject(project)}
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedProject(project);
+                  }
+                }}
+                aria-label={`Buka case study untuk ${project.title}`}
+              >
+                {/* 1. Visual Preview Frame (Crisp Mockup / Image with zero badge collision) */}
+                <div className="work-visual-frame">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={`Preview antarmuka ${project.title}`}
+                      className="work-preview-img"
+                      loading="lazy"
+                    />
+                  ) : (
                     <div className="work-wireframe-art">
                       <div className="art-topbar">
                         <span className="dot" />
@@ -162,37 +189,86 @@ export default function SelectedWork({ onNavigateToAdmin }) {
                         </div>
                       </div>
                     </div>
+                  )}
 
-                    <div className="visual-badge-overlay">
-                      <span className="tag">{project.badge}</span>
-                      <span className="tag">{project.year}</span>
+                  {/* Clean corner floating tags */}
+                  <div className="visual-tags-bar" aria-hidden="true">
+                    <span className="visual-badge">{project.badge || 'Showcase'}</span>
+                    <span className="visual-year">{project.year}</span>
+                  </div>
+                </div>
+
+                {/* 2. Structured Card Content */}
+                <div className="work-card-body">
+                  {/* Category & Quick Trigger */}
+                  <div className="work-card-header-row">
+                    <span className="work-category-badge">{project.category}</span>
+                    <div className="card-top-action">
+                      <span className="detail-hint">Case Study</span>
+                      <ArrowUpRight size={15} className="work-arrow" aria-hidden="true" />
                     </div>
                   </div>
 
-                  {/* Card Content */}
-                  <div className="work-card-body">
-                    <div className="work-card-top">
-                      <span className="work-category">{project.category}</span>
-                      <ArrowUpRight size={18} className="work-arrow" aria-hidden="true" />
-                    </div>
+                  {/* Title & Subtitle */}
+                  <h3 className="heading-2 work-item-title">{project.title}</h3>
+                  <p className="work-item-sub">{project.subtitle}</p>
 
-                    <h3 className="heading-2 work-item-title">{project.title}</h3>
-                    <p className="body-small work-item-summary">{project.summary}</p>
+                  {/* Summary */}
+                  <p className="body-small work-item-summary">{project.summary}</p>
 
-                    <div className="work-stack-list">
-                      {project.stack.slice(0, 3).map((st) => (
-                        <span key={st} className="tag">
+                  {/* Tech Stack Chips */}
+                  <div className="work-stack-list">
+                    {Array.isArray(project.stack) &&
+                      project.stack.slice(0, 4).map((st) => (
+                        <span key={st} className="tag tag-active">
                           {st}
                         </span>
                       ))}
-                      {project.stack.length > 3 && (
-                        <span className="tag">+{project.stack.length - 3}</span>
-                      )}
-                    </div>
+                    {Array.isArray(project.stack) && project.stack.length > 4 && (
+                      <span className="tag">+{project.stack.length - 4}</span>
+                    )}
                   </div>
-                </article>
-              );
-            })}
+
+                  {/* Quick External Links Row */}
+                  {(project.liveUrl || project.githubUrl) && (
+                    <div className="card-links-row" onClick={(e) => e.stopPropagation()}>
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-card-link"
+                          title="Buka website/preview di tab baru"
+                        >
+                          <Globe size={13} />
+                          <span>Live Preview</span>
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-card-link"
+                          title="Buka kode di GitHub"
+                        >
+                          <GithubIcon size={13} />
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                      <button
+                        type="button"
+                        className="btn-card-drawer"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        <Layers size={13} />
+                        <span>Spesifikasi Lengkap</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
           </div>
         )}
 
@@ -209,6 +285,8 @@ export default function SelectedWork({ onNavigateToAdmin }) {
         .work-section {
           background-color: var(--color-ink);
           border-top: 1px solid var(--color-border);
+          padding-top: clamp(4rem, 6vw, 6.5rem);
+          padding-bottom: clamp(4rem, 6vw, 6.5rem);
         }
 
         .work-header {
@@ -233,6 +311,7 @@ export default function SelectedWork({ onNavigateToAdmin }) {
         .work-subtitle {
           color: var(--color-gray-400);
           margin-bottom: 1.5rem;
+          line-height: 1.6;
         }
 
         .filter-and-admin-row {
@@ -286,34 +365,40 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
         }
 
+        /* Responsive Grid: Generous 2-column on desktop, clean 1-column on mobile/tablet */
         .work-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 1.75rem;
+          gap: 2.25rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 860px) {
           .work-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.625rem;
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
           }
         }
 
-        .work-card-large {
-          grid-column: span 2;
-        }
-
-        @media (max-width: 768px) {
-          .work-card-large {
-            grid-column: span 2;
-          }
-        }
-
+        /* Work Card */
         .work-card {
           cursor: pointer;
           display: flex;
           flex-direction: column;
           outline: none;
+          background-color: var(--color-charcoal);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-md);
+          overflow: hidden;
+          box-shadow: var(--shadow-card);
+          transition: border-color var(--duration-fast) var(--ease-out),
+                      transform var(--duration-base) var(--ease-out),
+                      box-shadow var(--duration-base) var(--ease-out);
+        }
+
+        .work-card:hover {
+          border-color: rgba(255, 255, 255, 0.25);
+          transform: translateY(-3px);
+          box-shadow: var(--shadow-floating);
         }
 
         .work-card:focus-visible {
@@ -321,51 +406,32 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           outline-offset: 3px;
         }
 
-        .work-card-large {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-        }
-
-        @media (max-width: 768px) {
-          .work-card-large {
-            display: flex;
-            flex-direction: column;
-          }
-        }
-
+        /* Visual Frame */
         .work-visual-frame {
           position: relative;
-          background: radial-gradient(circle at 50% 50%, #151515 0%, #0a0a0a 100%);
+          background: #0d0d10;
           border-bottom: 1px solid var(--color-border);
-          min-height: 240px;
+          aspect-ratio: 16 / 9.5;
+          width: 100%;
+          overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 1.5rem;
-          overflow: hidden;
         }
 
-        .work-card-large .work-visual-frame {
-          border-bottom: none;
-          border-right: 1px solid var(--color-border);
-          min-height: 340px;
+        .work-preview-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          transition: transform var(--duration-slow) var(--ease-out);
         }
 
-        @media (max-width: 768px) {
-          .work-card-large .work-visual-frame {
-            border-right: none;
-            border-bottom: 1px solid var(--color-border);
-          }
-          .work-visual-frame {
-            min-height: 120px !important;
-            padding: 0.75rem !important;
-          }
-          .work-card-large .work-visual-frame {
-            min-height: 130px !important;
-          }
+        .work-card:hover .work-preview-img {
+          transform: scale(1.03);
         }
 
-        /* Abstract Monochrome System Mockup Art */
+        /* Wireframe fallback */
         .work-wireframe-art {
           width: 88%;
           max-width: 440px;
@@ -374,11 +440,6 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           border-radius: var(--radius-sm);
           box-shadow: var(--shadow-card);
           overflow: hidden;
-          transition: transform var(--duration-base) var(--ease-out);
-        }
-
-        .work-card:hover .work-wireframe-art {
-          transform: translateY(-4px) scale(1.02);
         }
 
         .art-topbar {
@@ -426,92 +487,189 @@ export default function SelectedWork({ onNavigateToAdmin }) {
           height: 64px;
         }
 
-        .visual-badge-overlay {
+        /* Visual Tags Overlay (Clean top corner, never overlaps text) */
+        .visual-tags-bar {
           position: absolute;
-          top: 1rem;
-          left: 1rem;
+          top: 0.875rem;
+          left: 0.875rem;
           display: flex;
-          gap: 0.375rem;
+          align-items: center;
+          gap: 0.4rem;
+          z-index: 2;
         }
 
+        .visual-badge {
+          font-family: var(--font-mono);
+          font-size: 0.625rem;
+          letter-spacing: 0.04em;
+          color: var(--color-white);
+          background: rgba(14, 14, 18, 0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          padding: 0.25rem 0.55rem;
+          border-radius: var(--radius-xs);
+        }
+
+        .visual-year {
+          font-family: var(--font-mono);
+          font-size: 0.625rem;
+          color: var(--color-gray-300);
+          background: rgba(14, 14, 18, 0.85);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          padding: 0.25rem 0.5rem;
+          border-radius: var(--radius-xs);
+        }
+
+        /* Card Content Body */
         .work-card-body {
-          padding: 2.25rem 2rem;
+          padding: 1.75rem;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          flex: 1;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .work-card-body {
-            padding: 0.875rem 0.75rem !important;
-          }
-          .work-category {
-            font-size: 0.5625rem !important;
-          }
-          .work-item-title {
-            font-size: 0.875rem !important;
-            margin-bottom: 0.2rem !important;
-          }
-          .work-item-summary {
-            font-size: 0.6875rem !important;
-            line-height: 1.35 !important;
-            margin-bottom: 0.5rem !important;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-          }
-          .visual-badge-overlay .tag {
-            font-size: 0.5rem !important;
-            padding: 2px 4px !important;
-          }
-          .work-stack-list .tag {
-            font-size: 0.5625rem !important;
-            padding: 2px 5px !important;
+            padding: 1.25rem 1rem;
           }
         }
 
-        .work-card-top {
+        .work-card-header-row {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
 
-        .work-category {
+        .work-category-badge {
           font-family: var(--font-mono);
-          font-size: 0.75rem;
+          font-size: 0.6875rem;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
           color: var(--color-gray-400);
+        }
+
+        .card-top-action {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          color: var(--color-gray-400);
+          transition: color var(--duration-fast);
+        }
+
+        .detail-hint {
+          font-family: var(--font-mono);
+          font-size: 0.6875rem;
         }
 
         .work-arrow {
-          color: var(--color-gray-400);
-          transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+          transition: transform var(--duration-fast) var(--ease-out);
+        }
+
+        .work-card:hover .card-top-action {
+          color: var(--color-white);
         }
 
         .work-card:hover .work-arrow {
-          transform: translate(3px, -3px);
-          color: var(--color-white);
+          transform: translate(2px, -2px);
         }
 
         .work-item-title {
-          font-size: 1.5rem;
-          margin-bottom: 0.625rem;
+          font-size: 1.35rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
           color: var(--color-white);
         }
 
+        .work-item-sub {
+          font-family: var(--font-body);
+          font-size: 0.8125rem;
+          color: var(--color-gray-400);
+          margin-bottom: 0.875rem;
+          line-height: 1.45;
+        }
+
         .work-item-summary {
-          margin-bottom: 1.5rem;
           color: var(--color-gray-300);
+          line-height: 1.55;
+          margin-bottom: 1.25rem;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .work-stack-list {
           display: flex;
           flex-wrap: wrap;
           gap: 0.375rem;
+          margin-bottom: 1.25rem;
           margin-top: auto;
+        }
+
+        /* Card Links Row */
+        .card-links-row {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          padding-top: 1rem;
+          border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .btn-card-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: var(--color-white);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--color-border);
+          padding: 0.4rem 0.65rem;
+          border-radius: var(--radius-xs);
+          text-decoration: none;
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .btn-card-link:hover {
+          background: rgba(255, 255, 255, 0.15);
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-card-drawer {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-family: var(--font-body);
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: var(--color-gray-400);
+          background: transparent;
+          border: 1px solid transparent;
+          padding: 0.4rem 0.65rem;
+          border-radius: var(--radius-xs);
+          cursor: pointer;
+          margin-left: auto;
+          transition: all var(--duration-fast);
+        }
+
+        .btn-card-drawer:hover {
+          color: var(--color-white);
+          background: rgba(255, 255, 255, 0.04);
+        }
+
+        @media (max-width: 640px) {
+          .btn-card-drawer {
+            margin-left: 0;
+            width: 100%;
+            justify-content: center;
+          }
+          .card-links-row {
+            justify-content: flex-start;
+          }
         }
 
         .empty-state {

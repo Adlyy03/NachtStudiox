@@ -20,7 +20,30 @@ import {
   ShieldCheck,
   AlertTriangle,
   ArrowUpRight,
+  Globe,
+  Image as ImageIcon,
 } from 'lucide-react';
+
+// Authentic GitHub vector icon
+function GithubIcon({ size = 12, className = '' }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
 
 const ADMIN_DEFAULT_PASS = 'natch2024';
 const DEFAULT_YEAR = new Date().getFullYear().toString();
@@ -50,6 +73,9 @@ export default function AdminDashboard({ onBackToHome }) {
   const [formCategoryKey, setFormCategoryKey] = useState('website');
   const [formYear, setFormYear] = useState(DEFAULT_YEAR);
   const [formBadge, setFormBadge] = useState('Studio Production Project');
+  const [formImage, setFormImage] = useState('');
+  const [formLiveUrl, setFormLiveUrl] = useState('');
+  const [formGithubUrl, setFormGithubUrl] = useState('');
   const [formSummary, setFormSummary] = useState('');
   const [formChallenge, setFormChallenge] = useState('');
   const [formSolution, setFormSolution] = useState('');
@@ -101,6 +127,9 @@ export default function AdminDashboard({ onBackToHome }) {
     setFormCategoryKey('website');
     setFormYear(DEFAULT_YEAR);
     setFormBadge('Studio Production Project');
+    setFormImage('');
+    setFormLiveUrl('');
+    setFormGithubUrl('');
     setFormSummary('');
     setFormChallenge('');
     setFormSolution('');
@@ -121,6 +150,9 @@ export default function AdminDashboard({ onBackToHome }) {
     setFormCategoryKey(proj.categoryKey || 'website');
     setFormYear(proj.year);
     setFormBadge(proj.badge);
+    setFormImage(proj.image || '');
+    setFormLiveUrl(proj.liveUrl || '');
+    setFormGithubUrl(proj.githubUrl || '');
     setFormSummary(proj.summary);
     setFormChallenge(proj.challenge);
     setFormSolution(proj.solution);
@@ -160,6 +192,9 @@ export default function AdminDashboard({ onBackToHome }) {
       categoryKey: formCategoryKey,
       year: formYear.trim(),
       badge: formBadge.trim(),
+      image: formImage.trim() || undefined,
+      liveUrl: formLiveUrl.trim() || undefined,
+      githubUrl: formGithubUrl.trim() || undefined,
       summary: formSummary.trim(),
       challenge: formChallenge.trim(),
       solution: formSolution.trim(),
@@ -369,7 +404,7 @@ export default function AdminDashboard({ onBackToHome }) {
               </h1>
               <p className="body-regular text-muted">
                 {isEditing
-                  ? 'Perbarui spesifikasi arsitektur dan ringkasan deliverables proyek.'
+                  ? 'Perbarui spesifikasi arsitektur, gambar preview, dan tautan live/github proyek.'
                   : 'Tambahkan cetak biru atau proyek produksi studio baru ke galeri portofolio publik.'}
               </p>
             </div>
@@ -385,8 +420,9 @@ export default function AdminDashboard({ onBackToHome }) {
 
                 <div className="form-row-2">
                   <div className="form-group">
-                    <label className="form-label">Nama Proyek *</label>
+                    <label className="form-label" htmlFor="f-title">Nama Proyek *</label>
                     <input
+                      id="f-title"
                       type="text"
                       className="form-input"
                       placeholder="e.g. Nexa Engine"
@@ -396,8 +432,9 @@ export default function AdminDashboard({ onBackToHome }) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Tahun Rilis</label>
+                    <label className="form-label" htmlFor="f-year">Tahun Rilis</label>
                     <input
+                      id="f-year"
                       type="text"
                       className="form-input"
                       value={formYear}
@@ -407,8 +444,9 @@ export default function AdminDashboard({ onBackToHome }) {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Subjudul / Karakter Arsitektur</label>
+                  <label className="form-label" htmlFor="f-subtitle">Subjudul / Karakter Arsitektur</label>
                   <input
+                    id="f-subtitle"
                     type="text"
                     className="form-input"
                     placeholder="e.g. High-Throughput Telemetry Platform"
@@ -419,8 +457,9 @@ export default function AdminDashboard({ onBackToHome }) {
 
                 <div className="form-row-2">
                   <div className="form-group">
-                    <label className="form-label">Kategori Layanan</label>
+                    <label className="form-label" htmlFor="f-category">Kategori Layanan</label>
                     <select
+                      id="f-category"
                       className="form-select"
                       value={formCategory}
                       onChange={(e) => {
@@ -440,8 +479,9 @@ export default function AdminDashboard({ onBackToHome }) {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Badge Status</label>
+                    <label className="form-label" htmlFor="f-badge">Badge Status</label>
                     <input
+                      id="f-badge"
                       type="text"
                       className="form-input"
                       value={formBadge}
@@ -450,13 +490,67 @@ export default function AdminDashboard({ onBackToHome }) {
                   </div>
                 </div>
 
-                <div className="form-section-header" style={{ marginTop: '1.5rem' }}>
-                  <h2 className="heading-3">Uraian Teknis & Solusi</h2>
+                {/* Media & Tautan Luar (Opsional) */}
+                <div className="form-section-header" style={{ marginTop: '1.75rem' }}>
+                  <h2 className="heading-3">Media &amp; Tautan Luar (Opsional)</h2>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Ringkasan Eksekutif (Summary)</label>
+                  <label className="form-label" htmlFor="f-image">
+                    URL Gambar Preview Portofolio (Opsional)
+                  </label>
+                  <input
+                    id="f-image"
+                    type="text"
+                    className="form-input"
+                    placeholder="e.g. /projects/kroma-os.svg atau https://..."
+                    value={formImage}
+                    onChange={(e) => setFormImage(e.target.value)}
+                  />
+                  <span className="field-hint">
+                    Bisa berupa path lokal (contoh: <code>/projects/kroma-os.svg</code>) atau link gambar web. Kosongkan jika ingin pakai wireframe otomatis.
+                  </span>
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="f-live">
+                      URL Domain Live Preview / Website (Opsional)
+                    </label>
+                    <input
+                      id="f-live"
+                      type="url"
+                      className="form-input"
+                      placeholder="https://example.com"
+                      value={formLiveUrl}
+                      onChange={(e) => setFormLiveUrl(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="f-github">
+                      URL Repositori GitHub (Opsional)
+                    </label>
+                    <input
+                      id="f-github"
+                      type="url"
+                      className="form-input"
+                      placeholder="https://github.com/natch-studio/repo"
+                      value={formGithubUrl}
+                      onChange={(e) => setFormGithubUrl(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Technical Description & Solutions */}
+                <div className="form-section-header" style={{ marginTop: '1.75rem' }}>
+                  <h2 className="heading-3">Uraian Teknis &amp; Solusi</h2>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="f-summary">Ringkasan Eksekutif (Summary)</label>
                   <textarea
+                    id="f-summary"
                     rows={2}
                     className="form-textarea"
                     value={formSummary}
@@ -467,8 +561,9 @@ export default function AdminDashboard({ onBackToHome }) {
 
                 <div className="form-row-2">
                   <div className="form-group">
-                    <label className="form-label">Tantangan Rekayasa (Challenge)</label>
+                    <label className="form-label" htmlFor="f-challenge">Tantangan Rekayasa (Challenge)</label>
                     <textarea
+                      id="f-challenge"
                       rows={3}
                       className="form-textarea"
                       value={formChallenge}
@@ -478,8 +573,9 @@ export default function AdminDashboard({ onBackToHome }) {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Solusi Arsitektur (Solution)</label>
+                    <label className="form-label" htmlFor="f-solution">Solusi Arsitektur (Solution)</label>
                     <textarea
+                      id="f-solution"
                       rows={3}
                       className="form-textarea"
                       value={formSolution}
@@ -489,13 +585,14 @@ export default function AdminDashboard({ onBackToHome }) {
                   </div>
                 </div>
 
-                <div className="form-section-header" style={{ marginTop: '1.5rem' }}>
-                  <h2 className="heading-3">Stack & Metrik</h2>
+                <div className="form-section-header" style={{ marginTop: '1.75rem' }}>
+                  <h2 className="heading-3">Stack &amp; Metrik</h2>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Tech Stack (pisahkan koma)</label>
+                  <label className="form-label" htmlFor="f-stack">Tech Stack (pisahkan koma)</label>
                   <input
+                    id="f-stack"
                     type="text"
                     className="form-input"
                     value={formStack}
@@ -505,8 +602,9 @@ export default function AdminDashboard({ onBackToHome }) {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Deliverables Kunci (pisahkan koma)</label>
+                  <label className="form-label" htmlFor="f-deliverables">Deliverables Kunci (pisahkan koma)</label>
                   <input
+                    id="f-deliverables"
                     type="text"
                     className="form-input"
                     value={formDeliverables}
@@ -516,8 +614,9 @@ export default function AdminDashboard({ onBackToHome }) {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Metrik / Highlights (pisahkan koma)</label>
+                  <label className="form-label" htmlFor="f-highlights">Metrik / Highlights (pisahkan koma)</label>
                   <input
+                    id="f-highlights"
                     type="text"
                     className="form-input"
                     value={formHighlights}
@@ -544,42 +643,62 @@ export default function AdminDashboard({ onBackToHome }) {
 
             {/* Live Preview Column */}
             <div className="editor-preview-col">
-              <span className="preview-label">Live Preview Kartu Publik</span>
+              <span className="preview-label">Live Preview Kartu Portofolio</span>
               <div className="work-card surface-card preview-card">
                 <div className="work-visual-frame preview-frame">
-                  <div className="work-wireframe-art">
-                    <div className="art-topbar">
-                      <span className="dot" />
-                      <span className="dot" />
-                      <span className="dot" />
-                      <span className="art-route">/natch/spec/{formId || 'draft'}</span>
-                    </div>
-                    <div className="art-body">
-                      <div className="art-grid-lines">
-                        <div className="art-box box-1" />
-                        <div className="art-box box-2" />
-                        <div className="art-box box-3" />
+                  {formImage ? (
+                    <img
+                      src={formImage}
+                      alt="Preview"
+                      className="work-preview-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <div className="work-wireframe-art">
+                      <div className="art-topbar">
+                        <span className="dot" />
+                        <span className="dot" />
+                        <span className="dot" />
+                        <span className="art-route">/natch/spec/{formId || 'draft'}</span>
+                      </div>
+                      <div className="art-body">
+                        <div className="art-grid-lines">
+                          <div className="art-box box-1" />
+                          <div className="art-box box-2" />
+                          <div className="art-box box-3" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="visual-badge-overlay">
-                    <span className="tag">{formBadge || 'Preview'}</span>
-                    <span className="tag">{formYear || '2024'}</span>
+                  )}
+
+                  <div className="visual-tags-bar">
+                    <span className="visual-badge">{formBadge || 'Preview'}</span>
+                    <span className="visual-year">{formYear || '2024'}</span>
                   </div>
                 </div>
 
-                <div className="work-card-body" style={{ padding: '1.25rem 1rem' }}>
-                  <div className="work-card-top" style={{ marginBottom: '0.5rem' }}>
-                    <span className="work-category">{formCategory}</span>
-                    <ArrowUpRight size={14} className="text-white" />
+                <div className="work-card-body" style={{ padding: '1.25rem' }}>
+                  <div className="work-card-header-row">
+                    <span className="work-category-badge">{formCategory}</span>
+                    <div className="card-top-action">
+                      <span className="detail-hint">Preview</span>
+                      <ArrowUpRight size={14} className="text-white" />
+                    </div>
                   </div>
-                  <h3 className="heading-3" style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>
+
+                  <h3 className="heading-3" style={{ fontSize: '1.15rem', marginBottom: '0.2rem', color: '#fff' }}>
                     {formTitle || 'Judul Proyek Preview'}
                   </h3>
+                  <p className="work-item-sub" style={{ fontSize: '0.75rem', marginBottom: '0.5rem' }}>
+                    {formSubtitle || 'Karakter arsitektur dan spesifikasi subjudul sistem'}
+                  </p>
                   <p className="body-small text-muted" style={{ fontSize: '0.75rem', marginBottom: '0.75rem' }}>
                     {formSummary || 'Ringkasan singkat proyek akan tampil di sini saat pengunjung menelusuri portofolio.'}
                   </p>
-                  <div className="work-stack-list">
+
+                  <div className="work-stack-list" style={{ marginBottom: '0.75rem' }}>
                     {formStack
                       .split(',')
                       .slice(0, 3)
@@ -589,6 +708,23 @@ export default function AdminDashboard({ onBackToHome }) {
                         </span>
                       ))}
                   </div>
+
+                  {(formLiveUrl || formGithubUrl) && (
+                    <div className="card-links-row" style={{ paddingTop: '0.6rem' }}>
+                      {formLiveUrl && (
+                        <span className="btn-card-link" style={{ fontSize: '0.6875rem', padding: '0.25rem 0.5rem' }}>
+                          <Globe size={11} />
+                          <span>Live Demo</span>
+                        </span>
+                      )}
+                      {formGithubUrl && (
+                        <span className="btn-card-link" style={{ fontSize: '0.6875rem', padding: '0.25rem 0.5rem' }}>
+                          <GithubIcon size={11} />
+                          <span>GitHub</span>
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -599,16 +735,16 @@ export default function AdminDashboard({ onBackToHome }) {
           .admin-form-page-wrapper {
             min-height: 100vh;
             padding-top: 4.5rem;
-            padding-bottom: 7rem;
+            padding-bottom: 6rem;
             background-color: var(--color-ink);
           }
           .form-page-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 1.25rem;
-            border-bottom: 1px solid var(--color-border);
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
           }
           .page-mode-badge {
             font-family: var(--font-mono);
@@ -616,15 +752,16 @@ export default function AdminDashboard({ onBackToHome }) {
             color: var(--color-white);
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--color-border);
-            padding: 0.25rem 0.625rem;
+            padding: 0.35rem 0.75rem;
             border-radius: var(--radius-xs);
+            letter-spacing: 0.08em;
           }
           .form-page-title-row {
             margin-bottom: 2.5rem;
           }
           .editor-grid {
             display: grid;
-            grid-template-columns: 1.35fr 0.65fr;
+            grid-template-columns: 1.35fr 0.85fr;
             gap: 2.5rem;
             align-items: flex-start;
           }
@@ -635,14 +772,14 @@ export default function AdminDashboard({ onBackToHome }) {
             }
           }
           .dedicated-form-card {
-            padding: 2.25rem;
+            padding: 2.25rem 2rem;
             background-color: var(--color-charcoal);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-md);
           }
           @media (max-width: 640px) {
             .dedicated-form-card {
-              padding: 1.25rem;
+              padding: 1.5rem 1rem;
             }
           }
           .form-section-header {
@@ -650,9 +787,56 @@ export default function AdminDashboard({ onBackToHome }) {
             border-bottom: 1px solid var(--color-border-subtle);
             margin-bottom: 1.25rem;
           }
+          .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+          }
+          @media (max-width: 640px) {
+            .form-row-2 {
+              grid-template-columns: 1fr;
+            }
+          }
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.15rem;
+          }
+          .form-label {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-white);
+          }
+          .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background-color: #0d0d10;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xs);
+            padding: 0.65rem 0.85rem;
+            color: var(--color-white);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            transition: border-color var(--duration-fast);
+          }
+          .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-white);
+          }
+          .field-hint {
+            font-size: 0.6875rem;
+            color: var(--color-gray-400);
+            line-height: 1.4;
+          }
+          .field-hint code {
+            color: var(--color-white);
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1px 4px;
+            border-radius: 3px;
+          }
           .dedicated-form-actions {
             display: flex;
-            align-items: center;
             gap: 1rem;
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -661,41 +845,48 @@ export default function AdminDashboard({ onBackToHome }) {
           @media (max-width: 640px) {
             .dedicated-form-actions {
               flex-direction: column;
-              width: 100%;
-            }
-            .dedicated-form-actions .btn {
-              width: 100%;
             }
           }
           .editor-preview-col {
             position: sticky;
-            top: 6rem;
+            top: 5rem;
           }
           .preview-label {
             display: block;
             font-family: var(--font-mono);
             font-size: 0.6875rem;
-            color: var(--color-gray-500);
+            color: var(--color-gray-400);
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
             margin-bottom: 0.75rem;
           }
           .preview-card {
-            pointer-events: none;
+            background-color: var(--color-charcoal);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-floating);
           }
           .preview-frame {
-            min-height: 140px;
+            aspect-ratio: 16 / 9.5;
+            background: #0d0d10;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
           }
         `}</style>
       </div>
     );
   }
 
-  // 3. MAIN DASHBOARD VIEW (currentView === 'list')
+  // 3. MAIN DASHBOARD VIEW (LIST VIEW)
   return (
     <div className="admin-dashboard-wrapper">
       <div className="container">
-        {/* Top Control Bar */}
+        {/* Top Header Bar */}
         <div className="admin-header-bar">
           <div className="admin-brand-status">
             <button type="button" className="btn btn-secondary btn-sm" onClick={onBackToHome}>
@@ -718,7 +909,7 @@ export default function AdminDashboard({ onBackToHome }) {
         {/* Admin Title */}
         <div className="admin-title-row">
           <div>
-            <h1 className="heading-1">Pusat Kendali Portofolio & Konten</h1>
+            <h1 className="heading-1">Pusat Kendali Portofolio &amp; Konten</h1>
             <p className="body-regular text-muted">
               Kelola entri portofolio yang ditampilkan di halaman depan dan moderasi testimoni partner.
             </p>
@@ -761,10 +952,11 @@ export default function AdminDashboard({ onBackToHome }) {
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Judul Proyek</th>
+                    <th>Judul &amp; Informasi</th>
                     <th>Kategori</th>
                     <th>Tahun</th>
                     <th>Status Badge</th>
+                    <th>Tautan &amp; Media</th>
                     <th>Tech Stack</th>
                     <th style={{ textAlign: 'right' }}>Aksi</th>
                   </tr>
@@ -772,7 +964,7 @@ export default function AdminDashboard({ onBackToHome }) {
                 <tbody>
                   {projects.map((proj) => (
                     <tr key={proj.id}>
-                      <td>
+                      <td style={{ minWidth: '220px' }}>
                         <strong className="table-title">{proj.title}</strong>
                         <span className="table-sub">{proj.subtitle}</span>
                       </td>
@@ -786,6 +978,45 @@ export default function AdminDashboard({ onBackToHome }) {
                         <span className="table-badge">{proj.badge}</span>
                       </td>
                       <td>
+                        <div className="table-links-group">
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="admin-link-pill"
+                              title={proj.liveUrl}
+                            >
+                              <Globe size={11} />
+                              <span>Live</span>
+                            </a>
+                          )}
+                          {proj.githubUrl && (
+                            <a
+                              href={proj.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="admin-link-pill"
+                              title={proj.githubUrl}
+                            >
+                              <GithubIcon size={11} />
+                              <span>Repo</span>
+                            </a>
+                          )}
+                          {proj.image && (
+                            <span className="admin-link-pill image-pill" title={proj.image}>
+                              <ImageIcon size={11} />
+                              <span>Image</span>
+                            </span>
+                          )}
+                          {!proj.liveUrl && !proj.githubUrl && !proj.image && (
+                            <span className="text-muted" style={{ fontSize: '0.6875rem' }}>
+                              -
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td>
                         <div className="table-chips">
                           {Array.isArray(proj.stack) &&
                             proj.stack.slice(0, 3).map((st) => (
@@ -795,7 +1026,7 @@ export default function AdminDashboard({ onBackToHome }) {
                             ))}
                         </div>
                       </td>
-                      <td style={{ textAlign: 'right' }}>
+                      <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                         <div className="action-buttons-cell">
                           <button
                             type="button"
@@ -804,7 +1035,7 @@ export default function AdminDashboard({ onBackToHome }) {
                             title="Edit data proyek di halaman penuh"
                           >
                             <Pencil size={13} />
-                            <span>Edit Halaman</span>
+                            <span>Edit</span>
                           </button>
                           <button
                             type="button"
@@ -852,17 +1083,17 @@ export default function AdminDashboard({ onBackToHome }) {
                         <span className="tag">{testi.projectType}</span>
                       </td>
                       <td>
-                        <span className="table-mono">{testi.date || testi.year}</span>
+                        <span className="table-mono">{testi.date}</span>
                       </td>
                       <td>
-                        <p className="table-quote-preview">"{testi.content}"</p>
+                        <p className="table-testi-quote">&quot;{testi.quote}&quot;</p>
                       </td>
                       <td style={{ textAlign: 'right' }}>
                         <button
                           type="button"
                           className="btn-delete-row"
                           onClick={() => requestDeleteTestimonial(testi)}
-                          title="Hapus testimoni via pop-up"
+                          title="Hapus testimoni via pop-up konfirmasi"
                         >
                           <Trash2 size={13} />
                           <span>Hapus</span>
@@ -876,27 +1107,22 @@ export default function AdminDashboard({ onBackToHome }) {
           </div>
         )}
 
-        {/* CUSTOM IN-APP DELETE CONFIRMATION POP-UP (NO BROWSER ALERT) */}
+        {/* Custom Confirmation Dialog Modal */}
         {deleteTarget && (
-          <div className="popup-backdrop" onClick={cancelDelete} role="dialog" aria-modal="true">
-            <div className="popup-dialog surface-raised" onClick={(e) => e.stopPropagation()}>
-              <div className="popup-icon-box">
-                <AlertTriangle size={24} className="text-red" />
+          <div className="modal-backdrop" role="dialog" aria-modal="true">
+            <div className="delete-confirm-card surface-raised">
+              <div className="delete-icon-box">
+                <AlertTriangle size={24} className="text-danger" />
               </div>
 
-              <h3 className="heading-3 popup-title">
-                {deleteTarget.type === 'reset'
-                  ? 'Konfirmasi Reset Seluruh Data?'
-                  : 'Konfirmasi Penghapusan Permanen'}
-              </h3>
+              <h2 className="heading-3 delete-confirm-title">Konfirmasi Penghapusan</h2>
 
-              <p className="body-small popup-message">
-                {deleteTarget.type === 'reset'
-                  ? 'Tindakan ini akan mengembalikan seluruh portofolio ke cetak biru bawaan studio.'
-                  : `Anda yakin ingin menghapus "${deleteTarget.title}"? Data akan dihapus secara permanen dari penyimpanan.`}
+              <p className="body-small text-muted" style={{ marginBottom: '1.25rem' }}>
+                Apakah Anda yakin ingin menghapus <strong>&quot;{deleteTarget.title}&quot;</strong>?
+                Tindakan ini akan menghapus entri dari penyimpanan lokal browser secara permanen.
               </p>
 
-              <div className="popup-action-row">
+              <div className="delete-dialog-actions">
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
@@ -1034,10 +1260,13 @@ export default function AdminDashboard({ onBackToHome }) {
         .projects-table-card {
           padding: 1.5rem;
           background-color: var(--color-charcoal);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-md);
         }
 
         .table-responsive {
           overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         .admin-table {
@@ -1055,6 +1284,7 @@ export default function AdminDashboard({ onBackToHome }) {
           color: var(--color-gray-500);
           padding: 0.875rem 1rem;
           border-bottom: 1px solid var(--color-border);
+          white-space: nowrap;
         }
 
         .admin-table td {
@@ -1073,6 +1303,7 @@ export default function AdminDashboard({ onBackToHome }) {
         .table-sub {
           font-size: 0.75rem;
           color: var(--color-gray-400);
+          display: block;
         }
 
         .table-mono {
@@ -1083,6 +1314,40 @@ export default function AdminDashboard({ onBackToHome }) {
 
         .table-badge {
           font-size: 0.75rem;
+          color: var(--color-gray-400);
+          white-space: nowrap;
+        }
+
+        .table-links-group {
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          flex-wrap: wrap;
+        }
+
+        .admin-link-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          font-family: var(--font-mono);
+          font-size: 0.625rem;
+          padding: 0.2rem 0.45rem;
+          border-radius: var(--radius-xs);
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid var(--color-border);
+          color: var(--color-gray-300);
+          text-decoration: none;
+          transition: all var(--duration-fast);
+        }
+
+        .admin-link-pill:hover {
+          color: var(--color-white);
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .image-pill {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.08);
           color: var(--color-gray-400);
         }
 
@@ -1099,105 +1364,96 @@ export default function AdminDashboard({ onBackToHome }) {
         }
 
         .btn-delete-row {
-          padding: 0.45rem 0.65rem;
-          border-radius: var(--radius-xs);
-          background: rgba(255, 60, 60, 0.08);
-          border: 1px solid rgba(255, 60, 60, 0.25);
-          color: #ff8080;
-          cursor: pointer;
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
+          background: transparent;
+          border: 1px solid rgba(255, 80, 80, 0.2);
+          color: #ff8585;
+          padding: 0.45rem 0.75rem;
+          border-radius: var(--radius-xs);
           font-size: 0.75rem;
+          cursor: pointer;
+          transition: all var(--duration-fast);
         }
 
         .btn-delete-row:hover {
-          background: rgba(255, 60, 60, 0.2);
+          background: rgba(255, 80, 80, 0.15);
+          border-color: rgba(255, 80, 80, 0.4);
+          color: #ff9999;
         }
 
-        .table-quote-preview {
+        .table-testi-quote {
           font-size: 0.8125rem;
           color: var(--color-gray-300);
-          max-width: 380px;
-          line-height: 1.4;
+          max-width: 420px;
+          line-height: 1.45;
         }
 
-        /* CUSTOM POP-UP DIALOG */
-        .popup-backdrop {
+        /* Delete Modal Backdrop */
+        .modal-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.82);
+          background-color: rgba(0, 0, 0, 0.82);
           backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
           z-index: 3000;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 1.25rem;
-          animation: popupFadeIn 200ms var(--ease-out);
+          padding: 1.5rem;
         }
 
-        @keyframes popupFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        .popup-dialog {
+        .delete-confirm-card {
           width: 100%;
           max-width: 440px;
-          padding: 2rem 1.75rem;
+          padding: 2rem;
           background-color: var(--color-charcoal);
-          border: 1px solid var(--color-border-strong);
+          border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
           box-shadow: var(--shadow-floating);
           text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
         }
 
-        .popup-icon-box {
+        .delete-icon-box {
           width: 48px;
           height: 48px;
           border-radius: 50%;
-          background: rgba(255, 60, 60, 0.12);
-          border: 1px solid rgba(255, 60, 60, 0.3);
-          display: flex;
+          background: rgba(255, 80, 80, 0.1);
+          border: 1px solid rgba(255, 80, 80, 0.25);
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1rem;
         }
 
-        .text-red {
+        .text-danger {
           color: #ff6b6b;
         }
 
-        .popup-title {
+        .delete-confirm-title {
           font-size: 1.25rem;
-          margin-bottom: 0.5rem;
           color: var(--color-white);
+          margin-bottom: 0.5rem;
         }
 
-        .popup-message {
-          color: var(--color-gray-400);
-          margin-bottom: 1.75rem;
-          line-height: 1.5;
-        }
-
-        .popup-action-row {
+        .delete-dialog-actions {
           display: flex;
           gap: 0.75rem;
-          width: 100%;
-        }
-
-        .popup-action-row .btn {
-          flex: 1;
+          justify-content: center;
         }
 
         .btn-danger {
           background-color: #d32f2f;
           color: #ffffff;
-          border: 1px solid #ff4d4d;
+          border: 1px solid #e53935;
+          padding: 0.55rem 1rem;
+          border-radius: var(--radius-xs);
+          font-weight: 500;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          transition: background-color var(--duration-fast);
         }
 
         .btn-danger:hover {

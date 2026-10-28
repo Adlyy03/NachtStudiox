@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ArrowDown, ArrowUpRight, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import MotionShowcase from './MotionShowcase';
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -48,13 +49,23 @@ export default function Hero() {
           '-=0.4'
         )
         .from(
+          '.hero-desktop-showcase-container',
+          {
+            opacity: 0,
+            y: 24,
+            scale: 0.98,
+            duration: 0.8,
+          },
+          '-=0.3'
+        )
+        .from(
           '.hero-spec-card',
           {
             opacity: 0,
             scale: 0.98,
             duration: 0.7,
           },
-          '-=0.4'
+          '-=0.5'
         )
         .from(
           '.hero-strip-item',
@@ -72,20 +83,20 @@ export default function Hero() {
 
   return (
     <section ref={containerRef} className="hero-section" id="hero" aria-label="Hero">
-      {/* Atmospheric Anime Wallpaper Backdrop */}
+      {/* Atmospheric Wallpaper Backdrop */}
       <div className="hero-wallpaper-backdrop" aria-hidden="true">
         <div className="hero-wallpaper-img" />
         <div className="hero-wallpaper-overlay" />
       </div>
 
       <div className="container hero-container">
-        <div className="hero-grid">
-          {/* Essential Introduction Column */}
-          <div className="hero-content">
+        {/* DESKTOP HERO PRESENTATION (Inspired by animos.app & Plainthing Studio) */}
+        <div className="hero-desktop-view">
+          <header className="hero-center-header">
             <div className="hero-meta">
               <span className="eyebrow">
                 <span className="eyebrow-dot" />
-                NATCH STUDIO // DIGITAL STUDIO
+                NATCH STUDIO // DIGITAL ARCHITECTURE &amp; MOTION
               </span>
             </div>
 
@@ -108,42 +119,86 @@ export default function Hero() {
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             </div>
+          </header>
+
+          {/* Desktop-only Motion Graphics Showcase Centerpiece */}
+          <div className="hero-desktop-showcase-container">
+            <MotionShowcase />
           </div>
+        </div>
 
-          {/* Minimalist Profile Card */}
-          <div className="hero-visual-wrap">
-            <div className="hero-spec-card surface-card">
-              <div className="spec-card-header">
-                <div className="spec-logo-box">
-                  <img
-                    src="/logo-transparent.png"
-                    alt="Natch Studio"
-                    className="spec-emblem-img"
-                    width="36"
-                    height="36"
-                  />
+        {/* MOBILE / TABLET VIEW (Lightweight, Touch-friendly, Zero Lag) */}
+        <div className="hero-mobile-view">
+          <div className="hero-mobile-grid">
+            <div className="hero-content">
+              <div className="hero-meta">
+                <span className="eyebrow">
+                  <span className="eyebrow-dot" />
+                  NATCH STUDIO // DIGITAL STUDIO
+                </span>
+              </div>
+
+              <h1 className="display-xl hero-title">
+                Digital products, <br />
+                <span className="text-highlight">crafted with intent.</span>
+              </h1>
+
+              <p className="body-large hero-sub">
+                Studio independen pengembang Website performa tinggi, Web Application kompleks, dan Mobile App presisi.
+              </p>
+
+              <div className="hero-actions">
+                <a href="#work" className="btn btn-primary btn-sm">
+                  <span>Lihat Portofolio</span>
+                  <ArrowDown size={14} aria-hidden="true" />
+                </a>
+                <a href="#estimator" className="btn btn-secondary btn-sm">
+                  <span>Konsultasi Scope</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+
+            {/* Compact Mobile Profile Card */}
+            <div className="hero-visual-wrap">
+              <div className="hero-spec-card surface-card">
+                <div className="spec-card-header">
+                  <div className="spec-logo-box">
+                    <img
+                      src="/logo-transparent.png"
+                      alt="Natch Studio"
+                      className="spec-emblem-img"
+                      width="36"
+                      height="36"
+                    />
+                  </div>
+                  <div>
+                    <strong className="spec-brand-name">Natch Studio</strong>
+                    <span className="spec-brand-sub">Software &amp; Design Studio</span>
+                  </div>
                 </div>
-                <div>
-                  <strong className="spec-brand-name">Natch Studio</strong>
-                  <span className="spec-brand-sub">Software & Design Studio</span>
+
+                <div className="spec-pill-list">
+                  <span className="tag tag-active">Website Development</span>
+                  <span className="tag tag-active">Web Application</span>
+                  <span className="tag tag-active">Mobile App</span>
                 </div>
-              </div>
 
-              <div className="spec-pill-list">
-                <span className="tag tag-active">Website Development</span>
-                <span className="tag tag-active">Web Application</span>
-                <span className="tag tag-active">Mobile App</span>
-              </div>
+                <div className="spec-status-bar">
+                  <span className="status-live-dot" />
+                  <span className="status-live-text">Terbuka untuk Proyek Q4 / Q1</span>
+                </div>
 
-              <div className="spec-status-bar">
-                <span className="status-live-dot" />
-                <span className="status-live-text">Terbuka untuk Proyek Q4 / Q1</span>
+                <a
+                  href="https://wa.me/62895321217645"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="spec-direct-link"
+                >
+                  <span>Hubungi via WhatsApp</span>
+                  <ArrowRight size={13} />
+                </a>
               </div>
-
-              <a href="https://wa.me/62895321217645" target="_blank" rel="noopener noreferrer" className="spec-direct-link">
-                <span>Hubungi via WhatsApp</span>
-                <ArrowRight size={13} />
-              </a>
             </div>
           </div>
         </div>
@@ -154,7 +209,7 @@ export default function Hero() {
             <span className="strip-num">01</span>
             <div className="strip-text">
               <strong>Website</strong>
-              <p>Editorial & Showcase</p>
+              <p>Editorial &amp; Showcase</p>
             </div>
           </div>
 
@@ -162,7 +217,7 @@ export default function Hero() {
             <span className="strip-num">02</span>
             <div className="strip-text">
               <strong>Web App</strong>
-              <p>Dashboard & SaaS</p>
+              <p>Dashboard &amp; SaaS</p>
             </div>
           </div>
 
@@ -170,7 +225,7 @@ export default function Hero() {
             <span className="strip-num">03</span>
             <div className="strip-text">
               <strong>Mobile App</strong>
-              <p>iOS & Android</p>
+              <p>iOS &amp; Android</p>
             </div>
           </div>
         </div>
@@ -178,7 +233,7 @@ export default function Hero() {
 
       <style>{`
         .hero-section {
-          padding-top: clamp(4.5rem, 7vw, 7rem);
+          padding-top: clamp(4.5rem, 6vw, 6.5rem);
           padding-bottom: clamp(2rem, 3.5vw, 3.5rem);
           position: relative;
           overflow: hidden;
@@ -206,7 +261,7 @@ export default function Hero() {
           background-position: center 25%;
           background-size: cover;
           background-repeat: no-repeat;
-          opacity: 0.40;
+          opacity: 0.35;
           filter: contrast(110%) brightness(85%);
           transform: scale(1.02);
         }
@@ -215,8 +270,8 @@ export default function Hero() {
           position: absolute;
           inset: 0;
           background: 
-            radial-gradient(circle at 65% 30%, transparent 20%, #080808 85%),
-            linear-gradient(180deg, rgba(8, 8, 8, 0.4) 0%, rgba(8, 8, 8, 0.8) 65%, #080808 100%);
+            radial-gradient(circle at 50% 25%, transparent 25%, #080808 85%),
+            linear-gradient(180deg, rgba(8, 8, 8, 0.4) 0%, rgba(8, 8, 8, 0.85) 60%, #080808 100%);
         }
 
         .hero-container {
@@ -224,18 +279,32 @@ export default function Hero() {
           z-index: 1;
         }
 
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1.35fr 0.65fr;
-          gap: clamp(1.5rem, 4vw, 3.5rem);
-          align-items: center;
+        /* Responsive View Switches */
+        .hero-desktop-view {
+          display: none;
         }
 
-        @media (max-width: 860px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
+        .hero-mobile-view {
+          display: block;
+        }
+
+        @media (min-width: 1024px) {
+          .hero-desktop-view {
+            display: block;
           }
+          .hero-mobile-view {
+            display: none;
+          }
+        }
+
+        /* Desktop Layout (Animos Centered Style) */
+        .hero-center-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          max-width: 820px;
+          margin-inline: auto;
         }
 
         .hero-meta {
@@ -255,11 +324,29 @@ export default function Hero() {
         }
 
         .hero-sub {
-          max-width: 520px;
+          max-width: 540px;
           margin-bottom: 1.5rem;
           color: var(--color-gray-300);
           font-size: clamp(0.9375rem, 1.1vw, 1.125rem);
           line-height: 1.55;
+        }
+
+        .hero-actions {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .hero-desktop-showcase-container {
+          width: 100%;
+        }
+
+        /* Mobile Layout */
+        .hero-mobile-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.25rem;
         }
 
         @media (max-width: 640px) {
@@ -268,21 +355,14 @@ export default function Hero() {
             margin-bottom: 1.25rem;
             line-height: 1.4;
           }
-        }
 
-        .hero-actions {
-          display: flex;
-          gap: 0.625rem;
-          align-items: center;
-        }
-
-        @media (max-width: 640px) {
           .hero-actions {
             display: flex;
             flex-direction: row;
             gap: 0.5rem;
             width: 100%;
           }
+
           .hero-actions .btn {
             flex: 1;
             padding: 0.55rem 0.75rem;
@@ -297,7 +377,7 @@ export default function Hero() {
         }
 
         .hero-spec-card {
-          padding: 1.35rem;
+          padding: 1.15rem;
           background-color: rgba(17, 17, 17, 0.85);
           backdrop-filter: blur(8px);
           border: 1px solid var(--color-border);
@@ -321,8 +401,8 @@ export default function Hero() {
         }
 
         .spec-logo-box {
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           border-radius: var(--radius-xs);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--color-border);
@@ -423,12 +503,12 @@ export default function Hero() {
 
         /* 3 Columns Side-by-side Micro-Strip */
         .hero-strip {
-          margin-top: clamp(2rem, 3.5vw, 3rem);
-          padding-top: 1.25rem;
+          margin-top: clamp(2.5rem, 4vw, 4rem);
+          padding-top: 1.5rem;
           border-top: 1px solid var(--color-border);
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1.25rem;
+          gap: 1.5rem;
         }
 
         @media (max-width: 640px) {

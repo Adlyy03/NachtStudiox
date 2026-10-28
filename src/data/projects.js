@@ -7,6 +7,9 @@ export const projectsData = [
     categoryKey: 'webapp',
     year: '2024',
     badge: 'Studio Architecture Showcase',
+    image: '/projects/kroma-os.svg',
+    liveUrl: 'https://kroma-os.internal.mesh',
+    githubUrl: 'https://github.com/natch-studio/kroma-os',
     summary:
       'Dashboard analitik berkecepatan tinggi yang memproses ribuan data stream per detik dengan WebGL rendering dan zero frame drops.',
     challenge:
@@ -25,6 +28,9 @@ export const projectsData = [
     categoryKey: 'website',
     year: '2024',
     badge: 'Studio Architecture Showcase',
+    image: '/projects/aethelgard.svg',
+    liveUrl: 'https://aethelgard.studio',
+    githubUrl: 'https://github.com/natch-studio/aethelgard-spatial',
     summary:
       'Platform editorial untuk biro arsitektur kontemporer dengan tipografi dinamis, transisi halus GSAP, dan viewer 3D model interaktif.',
     challenge:
@@ -43,6 +49,9 @@ export const projectsData = [
     categoryKey: 'mobile',
     year: '2024',
     badge: 'Studio Architecture Showcase',
+    image: '/projects/vectra-mobile.svg',
+    liveUrl: 'https://vectra.financial',
+    githubUrl: 'https://github.com/natch-studio/vectra-wallet',
     summary:
       'Aplikasi mobile finansial dengan interaksi gesture presisi, keamanan biometrik instan, dan visualisasi portofolio monokromatik.',
     challenge:
@@ -61,6 +70,9 @@ export const projectsData = [
     categoryKey: 'website',
     year: '2024',
     badge: 'Studio Architecture Showcase',
+    image: '/projects/monolith-store.svg',
+    liveUrl: 'https://monolith.store',
+    githubUrl: 'https://github.com/natch-studio/monolith-commerce',
     summary:
       'Etalase belanja editorial tanpa ornamen generik, dirancang untuk brand produk desain independen dengan navigasi keyboard penuh.',
     challenge:

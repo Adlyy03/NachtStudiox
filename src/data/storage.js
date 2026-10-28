@@ -1,7 +1,7 @@
 import { projectsData } from './projects';
 import { initialTestimonials } from './testimonials';
 
-const PROJECTS_KEY = 'natch_projects_v1';
+const PROJECTS_KEY = 'natch_projects_v2';
 const TESTIMONIALS_KEY = 'natch_testimonials_v1';
 const ADMIN_AUTH_KEY = 'natch_admin_session';
 
@@ -12,7 +12,22 @@ export function getStoredProjects() {
       localStorage.setItem(PROJECTS_KEY, JSON.stringify(projectsData));
       return projectsData;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    // Ensure any existing items have default image/links if matching seeded IDs
+    const merged = parsed.map((item) => {
+      const defaultItem = projectsData.find((p) => p.id === item.id);
+      if (defaultItem) {
+        return {
+          ...defaultItem,
+          ...item,
+          image: item.image || defaultItem.image,
+          liveUrl: item.liveUrl !== undefined ? item.liveUrl : defaultItem.liveUrl,
+          githubUrl: item.githubUrl !== undefined ? item.githubUrl : defaultItem.githubUrl,
+        };
+      }
+      return item;
+    });
+    return merged;
   } catch {
     return projectsData;
   }
